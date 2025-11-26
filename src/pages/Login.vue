@@ -1,59 +1,29 @@
 <!--
   pages/Login.vue
-  
   로그인 페이지 메인 컴포넌트
-  
-  구성:
-  1. 왼쪽: 로그인 폼 (입력 필드, 버튼, 링크)
-  2. 오른쪽: 배경 그래픽 (애니메이션)
-  
-  디자인: PDF 기획안 참고
-  - OCI 브랜드 컬러 (빨강)
-  - 라운드한 디자인
-  - 부드러운 애니메이션
-  
-  Vue3 특징:
-  - ref: 리액티브 데이터 (이메일, 비밀번호, 에러 등)
-  - computed: 폼 유효성 검사
-  - onMounted: 페이지 로드 시 저장된 이메일 복원
-  - async/await: 로그인 비동기 처리
 -->
-
 <template>
   <!-- 
     로그인 페이지 전체 컨테이너
-    
-    100vh: 전체 화면 높이
-    display: flex: 왼쪽/오른쪽 두 섹션 배치
   -->
   <div class="login-page">
-    <!-- ==================== 왼쪽: 로그인 폼 섹션 ==================== -->
-    <div class="login-form-section">
-      <!-- 폼 컨테이너 -->
-      <div class="login-container">
-        <!-- 
-          헤더: 제목 및 설명
-          
-          PDF 디자인에서:
-          "로그인"
-          "OCI AI Web Service 에 오신것을 환영합니다"
-        -->
-        <div class="login-header">
-          <h1 class="login-title">로그인</h1>
-          <p class="login-subtitle">
-            OCI AI Web Service 에 오신것을 환영합니다
-          </p>
-        </div>
+    <div class="login-page__inner">
+      <div class="login-form-section">
+        <!-- 폼 컨테이너 -->
+        <div class="login-container">
+          <div class="login-header">
+            <h1 class="login-title">로그인</h1>
+            <p class="login-subtitle">OCI AI Works 에 오신것을 환영합니다</p>
+          </div>
 
-        <!-- 
+          <!-- 
           로그인 폼
-          
           @submit.prevent: 기본 폼 제출 동작 방지 (Vue에서 처리)
         -->
-        <form class="login-form" @submit.prevent="handleLogin">
-          <!-- ========== 이메일 입력 필드 ========== -->
-          <div class="form-group">
-            <!-- 
+          <form class="login-form" @submit.prevent="handleLogin">
+            <!-- ========== 이메일 입력 필드 ========== -->
+            <div class="form-group email-group">
+              <!-- 
               InputField 컴포넌트 사용
               
               v-model: 양방향 바인딩 (email.value와 동기)
@@ -64,21 +34,21 @@
               
               #default 슬롯: 좌측 아이콘 (이메일 아이콘)
             -->
-            <InputField
-              v-model="email"
-              type="email"
-              placeholder="ID(email)"
-              :error="formErrors.email"
-              :disabled="isLoading"
-            >
-              <!-- 이메일 아이콘 (emoji 사용 - 간단함) -->
-              ✉️
-            </InputField>
-          </div>
+              <InputField
+                v-model="email"
+                type="email"
+                placeholder="ID(email)"
+                :error="formErrors.email"
+                :disabled="isLoading"
+              >
+                <!-- 이메일 아이콘 (emoji 사용 - 간단함) -->
+                ✉️
+              </InputField>
+            </div>
 
-          <!-- ========== 비밀번호 입력 필드 ========== -->
-          <div class="form-group">
-            <!-- 
+            <!-- ========== 비밀번호 입력 필드 ========== -->
+            <div class="form-group password-group">
+              <!-- 
               InputField 컴포넌트
               
               type="password": 비밀번호 필드
@@ -87,20 +57,35 @@
               
               showPassword 상태로 실제 비밀번호 표시 가능
             -->
-            <InputField
-              v-model="password"
-              type="password"
-              placeholder="Password"
-              :error="formErrors.password"
-              :disabled="isLoading"
-            >
-              <!-- 비밀번호 아이콘 -->
-              🔐
-            </InputField>
-          </div>
+              <InputField
+                v-model="password"
+                type="password"
+                placeholder="Password"
+                :error="formErrors.password"
+                :disabled="isLoading"
+              >
+                <!-- 비밀번호 아이콘 -->
+                🔐
+              </InputField>
+            </div>
+
+            <!-- ========== 에러 메시지 (전체 폼) ========== -->
+            <div v-if="error" class="form-error">
+              <span class="error-icon">⚠️</span>
+              <span class="error-text">{{ error }}</span>
+            </div>
+
+            <!-- ========== 체크박스: 아이디 저장 ========== -->
+            <Checkbox
+              v-model="rememberEmail"
+              label="아이디 저장"
+              class="remember-email-checkbox"
+            />
+          </form>
 
           <!-- ========== 로그인 버튼 ========== -->
           <Button
+            class="login-button"
             type="submit"
             variant="primary"
             size="lg"
@@ -110,47 +95,30 @@
           >
             로그인
           </Button>
-
-          <!-- ========== 에러 메시지 (전체 폼) ========== -->
-          <div v-if="error" class="form-error">
-            <span class="error-icon">⚠️</span>
-            <span class="error-text">{{ error }}</span>
-          </div>
-
-          <!-- ========== 체크박스: 아이디 저장 ========== -->
-          <Checkbox
-            v-model="rememberEmail"
-            label="아이디 저장"
-            class="remember-email-checkbox"
-          />
-        </form>
-
-        <!-- 
+          <!-- 
           하단 링크
           
           "비밀번호 찾기" | "계정 생성"
           
           현재는 v-on:click 미구현 (추후 라우터로 페이지 이동)
         -->
-        <div class="login-footer">
-          <button
-            type="button"
-            class="link-button"
-            @click="handleForgotPassword"
-          >
-            비밀번호 찾기
-          </button>
-          <span class="divider">|</span>
-          <button type="button" class="link-button" @click="handleSignup">
-            계정 생성
-          </button>
+          <div class="login-footer">
+            <button
+              type="button"
+              class="link-button"
+              @click="handleForgotPassword"
+            >
+              비밀번호 찾기
+            </button>
+            <span class="divider">|</span>
+            <button type="button" class="link-button" @click="handleSignup">
+              계정 생성
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-
-    <!-- ==================== 오른쪽: 배경 그래픽 섹션 ==================== -->
-    <div class="login-graphic-section">
-      <!-- 
+      <div class="login-graphic-section">
+        <!-- 
         배경 그라디언트 + 애니메이션 요소들
         
         PDF 디자인:
@@ -160,47 +128,8 @@
         - "AI Works" 텍스트
       -->
 
-      <!-- 배경 색상 컨테이너 -->
-      <div class="graphic-background">
-        <!-- 
-          중앙 원형 요소
-          
-          애니메이션: 부드러운 회전 + 펄스
-        -->
-        <div class="center-circle">
-          <!-- 내부 원 (작은 원) -->
-          <div class="circle-inner"></div>
-        </div>
-
-        <!-- 
-          움직이는 점들 (Floating Dots)
-          
-          각 점이 다른 위치에서 애니메이션
-          부드럽고 트렌디한 효과
-        -->
-        <div class="floating-dots">
-          <!-- 
-            각 점마다 다른 애니메이션 지연 적용
-            
-            @keyframes float를 별도로 정의하여
-            자연스러운 움직임 표현
-          -->
-          <div class="dot dot-1"></div>
-          <div class="dot dot-2"></div>
-          <div class="dot dot-3"></div>
-          <div class="dot dot-4"></div>
-          <div class="dot dot-5"></div>
-          <div class="dot dot-6"></div>
-          <div class="dot dot-7"></div>
-        </div>
-
-        <!-- 
-          "AI Works" 텍스트
-          
-          투명도가 낮아서 배경처럼 보임
-          사용자의 시선을 방해하지 않음
-        -->
-        <div class="graphic-text">AI Works</div>
+        <!-- 배경 색상 컨테이너 -->
+        <div class="graphic-background"></div>
       </div>
     </div>
   </div>
@@ -437,31 +366,57 @@ onMounted(() => {
 <style scoped lang="scss">
 /**
  * scoped: 이 스타일은 현재 컴포넌트에만 적용
- * 
  * lang="scss": SCSS 문법 사용
  */
 
 @use "@/assets/styles/variables" as *;
 @use "@/assets/styles/animations" as *;
 
-/* ==================== 전체 페이지 ==================== */
+/* ==================== 전체 페이지 & 전체 페이지 내부 ==================== */
 
 .login-page {
   /* 
     전체 화면을 차지하는 레이아웃
     
-    flexbox로 왼쪽/오른쪽 섹션을 배치
+    flexbox로 중앙 정렬을 위한 설정:
+    - display: flex: flexbox 컨테이너 활성화
+    - justify-content: center: 수평 중앙 정렬
+    - align-items: center: 수직 중앙 정렬
+    - gap: 위젯 간 간격 설정
   */
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100vh;
-  background-color: $bg-primary;
-
+  background-color: $bg-secondary;
   /* 
     반응형: 작은 화면에서는 세로 배치
   */
   @media (max-width: $breakpoint-phone) {
     flex-direction: column;
+  }
+
+  &__inner {
+    /* 
+      내부 컨테이너: 
+      - 고정된 너비와 높이로 설정
+      - 부모의 justify-content/align-items로 인해 자동으로 중앙 배치됨
+      - 내부에 왼쪽/오른쪽 섹션을 배치할 때는 여기서 flex를 사용
+    */
+    display: flex;
+    width: 900px;
+    height: 600px;
+    background-color: $bg-primary;
+    border-radius: 25px;
+    /* 
+      반응형: 작은 화면에서 __inner의 크기 조정
+    */
+    @media (max-width: $breakpoint-phone) {
+      width: 100%;
+      height: auto;
+      flex-direction: column;
+    }
   }
 }
 
@@ -470,15 +425,13 @@ onMounted(() => {
 .login-form-section {
   /* 
     왼쪽 섹션: 50% 너비
-    
     중앙 정렬로 폼이 화면 중앙에 보임
   */
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: $spacing-8;
-  background-color: $white;
+  padding: $spacing-10;
 
   /* 
     반응형: 작은 화면에서는 전체 너비
@@ -496,7 +449,7 @@ onMounted(() => {
     최대 너비 설정으로 폼이 너무 넓어지지 않음
   */
   width: 100%;
-  max-width: 400px;
+  max-width: 600px;
 
   /* 
     위에서 아래로 내려오는 애니메이션
@@ -514,7 +467,6 @@ onMounted(() => {
 .login-title {
   /* 
     "로그인" 제목
-    
     크기, 색상, 마진 설정
   */
   font-size: $font-size-3xl;
@@ -534,10 +486,9 @@ onMounted(() => {
     
     흐린 색상으로 보조 정보임을 표시
   */
-  font-size: $font-size-base;
+  font-size: $font-size-sm;
   color: $text-secondary;
   line-height: 1.6;
-
   animation: fadeInUp 0.6s ease-out 0.3s both;
 }
 
@@ -549,20 +500,17 @@ onMounted(() => {
   */
   display: flex;
   flex-direction: column;
-  gap: $spacing-6;
-  margin-bottom: $spacing-6;
 }
 
 .form-group {
   /* 
     입력 필드 그룹
-    
     에러 메시지 공간 예약 (아래)
   */
   display: flex;
   flex-direction: column;
   gap: $spacing-xs;
-  margin-bottom: $spacing-xs;
+  margin-bottom: 31px;
 
   /* 
     지연 애니메이션: 차례대로 나타남
@@ -618,7 +566,8 @@ onMounted(() => {
     체크박스 마진 조정
   */
   margin-top: $spacing-xs;
-  margin-bottom: $spacing-4;
+  margin-bottom: $spacing-5;
+  margin-left: $spacing-1;
 
   animation: fadeIn 0.5s ease-out 0.5s both;
 }
@@ -694,7 +643,6 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: $spacing-8;
   overflow: hidden;
 
   /* 
@@ -703,6 +651,11 @@ onMounted(() => {
   @media (max-width: $breakpoint-phone) {
     display: none;
   }
+}
+
+.login-button {
+  border-radius: 25px;
+  margin-bottom: 20px;
 }
 
 .graphic-background {

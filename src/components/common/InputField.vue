@@ -267,9 +267,9 @@ const inputType = computed(() => {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 50px;
-  height: 50px;
-
+  width: 35px;
+  height: 45px;
+  padding-left: 5px;
   /* 아이콘 색상 (주로 회색) */
   color: $gray-400;
 
@@ -287,8 +287,8 @@ const inputType = computed(() => {
     중요: flex: 1 을 사용하여 전체 너비를 차지하도록 설정
   */
   flex: 1;
-  height: 50px;
-  padding: 0 $spacing-4;
+  height: 45px;
+  padding: 0 $spacing-2;
   border: none;
   background: transparent;
   font-size: $font-size-base;

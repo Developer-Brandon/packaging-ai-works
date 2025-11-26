@@ -7,18 +7,31 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Node modules (의존성 폴더 - git에 올리지 않음)
 node_modules
 dist
 dist-ssr
 *.local
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
+# IDE / Editor
+.vscode
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment variables (민감한 정보)
+.env
+.env.local
+.env.*.local
+
+# Build output
+/dist/
+
+# IDE cache
+.eslintcache

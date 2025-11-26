@@ -24,7 +24,8 @@
  * http://localhost:5173 (개발)
  * https://api.example.com (프로덕션)
  */
-export const API_BASE_URL = process.env.VITE_API_URL || "http://localhost:5173";
+export const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5173";
 
 /**
  * 1-(2).API 엔드포인트
@@ -212,5 +213,3 @@ export const ENV = {
   IS_PRODUCTION: import.meta.env.PROD,
   IS_DEVELOPMENT: import.meta.env.DEV,
 };
-
-// TODO: 여기서부터 다시
