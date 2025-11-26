@@ -16,12 +16,12 @@
  */
 
 /* ==================== 색상 정의 ==================== */
-@use "./variables/border-variables";
 @use "./variables/color-variables";
+@use "./variables/border-variables";
 @use "./variables/font-variables";
-@use "./variables/gradient-variables";
 @use "./variables/media-query-breakpoint-variables";
 @use "./variables/shadow-variables";
 @use "./variables/spacing-variables";
 @use "./variables/transition-variables";
 @use "./variables/z-index-variables";
+@use "./variables/gradient-variables";
