@@ -28,8 +28,8 @@ import App from "./App.vue";
  * 각 파일은 독립적으로 import되며, @use는 네임스페이스 기반이므로
  * 중복 import되어도 성능에 영향 없습니다.
  */
-import "@/assets/styles/variables.scss";
-import "@/assets/styles/global/_global.scss";
+import "@/assets/styles/whole_variables.scss";
+import "@/assets/styles/global/whole_globals.scss";
 
 /* ==================== Vue 애플리케이션 초기화 ==================== */
 

@@ -137,8 +137,8 @@ defineEmits(["update:modelValue"]);
 </script>
 
 <style scoped lang="scss">
-@use "@/assets/styles/variables" as *;
-@use "@/assets/styles/animations" as *;
+@use "@/assets/styles/whole_variables" as *;
+@use "@/assets/styles/whole_animations" as *;
 
 .checkbox-wrapper {
   /* 

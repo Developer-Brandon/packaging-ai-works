@@ -218,8 +218,8 @@ const inputType = computed(() => {
  */
 
 // 변수 import (globals.scss, variables.scss의 전역 변수 사용)
-@use "@/assets/styles/variables" as *;
-@use "@/assets/styles/animations" as *;
+@use "@/assets/styles/whole_variables" as *;
+@use "@/assets/styles/whole_animations" as *;
 
 .input-wrapper {
   position: relative;
