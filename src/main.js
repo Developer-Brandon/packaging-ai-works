@@ -28,6 +28,7 @@ import App from "./App.vue";
  * 중복 import되어도 성능에 영향 없습니다.
  */
 import "@/assets/styles/variables.scss";
+import "@/assets/styles/global/_global.scss";
 
 /* ==================== Vue 애플리케이션 초기화 ==================== */
 

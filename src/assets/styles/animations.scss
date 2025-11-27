@@ -1,0 +1,386 @@
+/**
+ * src/assets/styles/animations.scss
+ * 
+ * 전체 프로젝트에서 재사용되는 애니메이션을 중앙에서 정의합니다.
+ * 
+ * 지침: 모든 UI/UX 변화에 부드럽고 트렌디한 애니메이션을 적용합니다.
+ * 
+ * 사용 예시:
+ * .element {
+ *   animation: fadeIn 0.3s ease-out;
+ * }
+ */
+
+/* ==================== 페이드 (Fade) 애니메이션 ==================== */
+
+/**
+ * fadeIn: 투명 -> 불투명 (등장 효과)
+ * 주로 페이지 진입, 요소 추가 시 사용
+ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/**
+ * fadeOut: 불투명 -> 투명 (퇴장 효과)
+ * 주로 페이지 이탈, 요소 제거 시 사용
+ */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/**
+ * fadeInDown: 위에서 아래로 나타남
+ * 주로 헤더, 제목 등 상단 요소 진입 시 사용
+ */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/**
+ * fadeInUp: 아래에서 위로 나타남
+ * 주로 카드, 모달, 콘텐츠 등이 아래에서 떠올라 올 때 사용
+ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/**
+ * fadeInLeft: 왼쪽에서 오른쪽으로 나타남
+ * 주로 사이드바, 메뉴 등이 나타날 때 사용
+ */
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/**
+ * fadeInRight: 오른쪽에서 왼쪽으로 나타남
+ */
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ==================== 슬라이드 (Slide) 애니메이션 ==================== */
+
+/**
+ * slideDown: 위에서 아래로 슬라이드
+ * 주로 드롭다운 메뉴 등에 사용
+ */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/**
+ * slideUp: 아래에서 위로 슬라이드
+ */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/**
+ * slideLeft: 왼쪽으로 슬라이드
+ */
+@keyframes slideLeft {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/**
+ * slideRight: 오른쪽으로 슬라이드
+ */
+@keyframes slideRight {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* ==================== 스케일 (Scale) 애니메이션 ==================== */
+
+/**
+ * scaleIn: 작은 상태에서 정상 크기로 확대
+ * 주로 모달, 팝업 등이 나타날 때 사용
+ */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/**
+ * scaleOut: 정상 크기에서 작은 상태로 축소
+ */
+@keyframes scaleOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+/**
+ * scaleUp: 확대 효과
+ * 주로 호버 시 아이콘 확대 등에 사용
+ */
+@keyframes scaleUp {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+/**
+ * scaleDown: 축소 효과
+ */
+@keyframes scaleDown {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.9);
+  }
+}
+
+/* ==================== 회전 (Rotate) 애니메이션 ==================== */
+
+/**
+ * spin: 계속 회전 (로딩 인디케이터)
+ */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/**
+ * bounce: 튀는 효과
+ * 주로 강조 애니메이션에 사용
+ */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/**
+ * pulse: 맥박 효과 (강조)
+ */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/**
+ * wiggle: 좌우로 흔들리는 효과
+ * 주로 에러 상황 등에 사용
+ */
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+/* ==================== 배경색 변화 ==================== */
+
+/**
+ * colorPulse: 배경색이 서서히 변함
+ * 주로 강조 효과나 알림에 사용
+ */
+@keyframes colorPulse {
+  0%,
+  100% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(102, 126, 234, 0.1);
+  }
+}
+
+/* ==================== 문자 타이핑 애니메이션 ==================== */
+
+/**
+ * typing: 텍스트가 한 글자씩 나타나는 효과
+ * AI 응답 표현 시 유용
+ */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/**
+ * blink: 커서 깜박임
+ */
+@keyframes blink {
+  0%,
+  49% {
+    border-color: transparent;
+  }
+  50%,
+  100% {
+    border-color: currentColor;
+  }
+}
+
+/* ==================== 유틸리티 클래스 ==================== */
+
+/**
+ * 애니메이션을 쉽게 적용하기 위한 유틸리티 클래스들
+ * 
+ * 사용 예시:
+ * <div class="animate-fade-in">페이드인 효과</div>
+ * <div class="animate-scale-in animate-delay-1">지연 스케일 효과</div>
+ */
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-fade-out {
+  animation: fadeOut 0.3s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease-out;
+}
+
+.animate-slide-down {
+  animation: slideDown 0.4s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.animate-bounce {
+  animation: bounce 1s ease-in-out infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* ==================== 애니메이션 지연 ==================== */
+
+/**
+ * 여러 요소가 차례대로 애니메이션되도록 지연을 주는 클래스들
+ * 
+ * 사용 예시:
+ * <div class="animate-scale-in animate-delay-1">첫 번째</div>
+ * <div class="animate-scale-in animate-delay-2">두 번째</div>
+ * <div class="animate-scale-in animate-delay-3">세 번째</div>
+ */
+
+.animate-delay-1 {
+  animation-delay: 0.1s;
+}
+
+.animate-delay-2 {
+  animation-delay: 0.2s;
+}
+
+.animate-delay-3 {
+  animation-delay: 0.3s;
+}
+
+.animate-delay-4 {
+  animation-delay: 0.4s;
+}
+
+.animate-delay-5 {
+  animation-delay: 0.5s;
+}

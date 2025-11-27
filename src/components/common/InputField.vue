@@ -242,6 +242,7 @@ const inputType = computed(() => {
   */
   &.has-error {
     border-color: $danger-color;
+    border-radius: $border-radius-full;
     background-color: rgba($danger-color, 0.05);
   }
 
@@ -339,8 +340,8 @@ const inputType = computed(() => {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 45px;
 
   /* 
     우측 여백 (아이콘 위치 조정)

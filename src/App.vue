@@ -1,9 +1,10 @@
 <script setup>
-import Login from "./pages/Login.vue";
+import LoginPage from "./pages/LoginPage.vue";
 </script>
 
 <template>
   <div id="app">
-    <Login />
+    <div class="app-container"></div>
+    <LoginPage />
   </div>
 </template>

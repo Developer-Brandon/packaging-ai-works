@@ -15,22 +15,17 @@
  */
 
 /* ==================== 1. CSS Reset - 브라우저 기본값 초기화 ==================== */
-html {
-  margin: 0 !important;
-  padding: 0 !important;
+* {
+  box-sizing: border-box;
 }
 
+html,
 body {
   margin: 0 !important;
   padding: 0 !important;
   width: 100%;
   height: 100%;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box; /* ← 추가 권장 */
+  word-break: break-all;
 }
 
 body {
@@ -39,8 +34,6 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  // -webkit-font-smoothing: antialiased;
-  // -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
 }
 

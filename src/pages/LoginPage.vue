@@ -41,13 +41,12 @@
                 :error="formErrors.email"
                 :disabled="isLoading"
               >
-                <!-- 이메일 아이콘 (emoji 사용 - 간단함) -->
                 ✉️
               </InputField>
             </div>
 
             <!-- ========== 비밀번호 입력 필드 ========== -->
-            <div class="form-group password-group">
+            <div class="form-group password-group" @keydown.enter="handleLogin">
               <!-- 
               InputField 컴포넌트
               
@@ -315,7 +314,7 @@ async function handleLogin() {
  * 추후: /password-reset 페이지로 이동
  */
 function handleForgotPassword() {
-  console.log("비밀번호 찾기 페이지로 이동");
+  alert("비밀번호 찾기 팝업 작업중");
   // router.push('/password-reset')
 }
 
@@ -325,7 +324,7 @@ function handleForgotPassword() {
  * 추후: /signup 페이지로 이동
  */
 function handleSignup() {
-  console.log("계정 생성 페이지로 이동");
+  alert("계정 생성 팝업 작업중");
   // router.push('/signup')
 }
 
@@ -396,10 +395,11 @@ onMounted(() => {
       - 내부에 왼쪽/오른쪽 섹션을 배치할 때는 여기서 flex를 사용
     */
     display: flex;
-    width: 900px;
+    width: 950px;
     height: 600px;
     background-color: $bg-primary;
     border-radius: 25px;
+    box-shadow: 0 4px 12px rgba($black, 0.1);
     /* 
       반응형: 작은 화면에서 __inner의 크기 조정
     */
@@ -423,6 +423,7 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   padding: $spacing-10;
+  max-width: 400px;
 
   /* 
     반응형: 작은 화면에서는 전체 너비
@@ -440,8 +441,6 @@ onMounted(() => {
     최대 너비 설정으로 폼이 너무 넓어지지 않음
   */
   width: 100%;
-  max-width: 600px;
-
   /* 
     위에서 아래로 내려오는 애니메이션
   */
@@ -615,6 +614,11 @@ onMounted(() => {
   }
 }
 
+.login-button {
+  border-radius: 25px;
+  margin-bottom: 20px;
+}
+
 .divider {
   /* 
     링크 구분선 "|"
@@ -645,202 +649,14 @@ onMounted(() => {
   }
 }
 
-.login-button {
-  border-radius: 25px;
-  margin-bottom: 20px;
-}
-
 .graphic-background {
   width: 100%;
   height: 100%;
-  background-image: url("@/assets/images/login/login_works_banner.png");
+  background-image: url("@/assets/images/login/banner/ai_works_banner.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 25px;
-}
-
-/* ==================== 중앙 원형 요소 ==================== */
-
-.center-circle {
-  /* 
-    중앙에 배치된 큰 원
-    
-    절대 위치로 중앙 정렬
-  */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  width: 200px;
-  height: 200px;
-
-  /* 
-    투명한 테두리로 원을 그림
-  */
-  border: 3px solid rgba($primary-color, 0.2);
-  border-radius: 50%;
-
-  /* 
-    회전 애니메이션
-  */
-  animation: spin 20s linear infinite;
-
-  /* 
-    자식 요소: 더 작은 내부 원
-  */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.circle-inner {
-  /* 
-    중앙 원 내부의 작은 원
-  */
-  width: 80px;
-  height: 80px;
-  background-color: rgba($primary-color, 0.1);
-  border-radius: 50%;
-
-  /* 
-    펄스 애니메이션
-  */
-  animation: pulse 2s ease-in-out infinite;
-}
-
-/* ==================== 움직이는 점들 ==================== */
-
-.floating-dots {
-  /* 
-    여러 점을 배치할 컨테이너
-    
-    절대 위치로 배경 전체에 배치
-  */
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.dot {
-  /* 
-    각 점의 기본 스타일
-  */
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background-color: $primary-color;
-  border-radius: 50%;
-  opacity: 0.6;
-
-  /* 
-    떠다니는 애니메이션
-  */
-  animation: float 6s ease-in-out infinite;
-}
-
-/* 
-  각 점마다 다른 위치와 지연 시간
-  이렇게 하면 자연스러운 움직임 표현
-*/
-
-.dot-1 {
-  top: 10%;
-  left: 20%;
-  animation-delay: 0s;
-}
-
-.dot-2 {
-  top: 20%;
-  right: 15%;
-  width: 10px;
-  height: 10px;
-  animation-delay: 0.5s;
-}
-
-.dot-3 {
-  top: 50%;
-  left: 10%;
-  width: 8px;
-  height: 8px;
-  animation-delay: 1s;
-}
-
-.dot-4 {
-  bottom: 30%;
-  right: 20%;
-  animation-delay: 1.5s;
-}
-
-.dot-5 {
-  bottom: 20%;
-  left: 25%;
-  width: 10px;
-  height: 10px;
-  animation-delay: 2s;
-}
-
-.dot-6 {
-  top: 70%;
-  right: 10%;
-  width: 8px;
-  height: 8px;
-  animation-delay: 2.5s;
-}
-
-.dot-7 {
-  top: 35%;
-  right: 30%;
-  animation-delay: 3s;
-}
-
-/* ==================== "AI Works" 텍스트 ==================== */
-
-.graphic-text {
-  /* 
-    배경 텍스트
-    
-    매우 투명하게 표시 (배경처럼)
-  */
-  position: absolute;
-  bottom: 40px;
-  right: 40px;
-
-  font-size: 4rem;
-  font-weight: $font-weight-bold;
-  color: rgba($primary-color, 0.08);
-  letter-spacing: 8px;
-
-  /* 
-    사용자 선택 방지
-  */
-  user-select: none;
-  pointer-events: none;
-
-  /* 
-    부드러운 페이드인
-  */
-  animation: fadeIn 1s ease-out 0.5s both;
-}
-
-/* ==================== 애니메이션 정의 (로컬) ==================== */
-
-/**
- * float 애니메이션
- * 
- * 점들이 부드럽게 떠다니는 효과
- * Y축으로 위아래로 움직임
- */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
+  animation: fadeIn 0.5s ease-out 0.6s both;
 }
 </style>
