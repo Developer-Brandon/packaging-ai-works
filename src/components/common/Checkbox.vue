@@ -240,11 +240,7 @@ defineEmits(["update:modelValue"]);
     체크됨 상태
   */
   &.checkbox-box-checked {
-    background: linear-gradient(
-      135deg,
-      $primary-color 0%,
-      $primary-dark-color 100%
-    );
+    background: linear-gradient(135deg, $primary-color 0%, $primary-color 100%);
     border-color: $primary-dark-color;
     box-shadow: 0 2px 8px rgba($primary-color, 0.3);
 
@@ -279,7 +275,7 @@ defineEmits(["update:modelValue"]);
 */
 .checkbox-text {
   color: $text-primary;
-  font-size: $font-size-base;
+  font-size: $font-size-sm;
   font-weight: $font-weight-normal;
 
   /* 

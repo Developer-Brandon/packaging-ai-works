@@ -259,11 +259,7 @@ defineEmits(["click"]);
 
 /* Primary 버튼 (주요 - 보라색) */
 .btn-primary {
-  background: linear-gradient(
-    135deg,
-    $primary-color 0%,
-    $primary-dark-color 100%
-  );
+  background: linear-gradient(135deg, $primary-color 0%, $primary-color 100%);
   color: $white;
   box-shadow: $shadow-md;
 

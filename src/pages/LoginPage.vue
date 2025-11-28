@@ -16,17 +16,6 @@
           <form class="login-form" @submit.prevent="handleLogin">
             <!-- ========== 이메일 입력 필드 ========== -->
             <div class="form-group email-group" @keydown.enter="handleLogin">
-              <!-- 
-              InputField 컴포넌트 사용
-              
-              v-model: 양방향 바인딩 (email.value와 동기)
-              type="email": 이메일 타입 (검증 지원)
-              placeholder: 힌트 텍스트
-              :error: 에러 메시지 (있으면 표시)
-              disabled: 로딩 중 입력 금지
-              
-              #default 슬롯: 좌측 아이콘 (이메일 아이콘)
-            -->
               <InputField
                 v-model="email"
                 type="email"
@@ -34,7 +23,7 @@
                 :error="formErrors.email"
                 :disabled="isLoading"
               >
-                ✉️
+                <CommonIcon :src="emailIconPath" />
               </InputField>
             </div>
             <!-- ========== 비밀번호 입력 필드 ========== -->
@@ -46,8 +35,7 @@
                 :error="formErrors.password"
                 :disabled="isLoading"
               >
-                <!-- 비밀번호 아이콘 -->
-                🔐
+                <CommonIcon :src="passwrodIconPath" />
               </InputField>
             </div>
             <!-- ========== 에러 메시지 (전체 폼) ========== -->
@@ -74,11 +62,6 @@
           >
             로그인
           </Button>
-          <!-- 
-          하단 링크
-          "비밀번호 찾기" | "계정 생성"
-          현재는 v-on:click 미구현 (추후 라우터로 페이지 이동)
-        -->
           <div class="login-footer">
             <button
               type="button"
@@ -130,6 +113,15 @@ import { useAuthStore } from "@/stores/auth";
 import InputField from "@/components/common/InputField.vue";
 import Button from "@/components/common/Button.vue";
 import Checkbox from "@/components/common/Checkbox.vue";
+import CommonIcon from "@/components/icon/CommonIcon.vue";
+const emailIconPath = new URL(
+  "@/assets/images/login/icon/email.png",
+  import.meta.url
+).href;
+const passwrodIconPath = new URL(
+  "@/assets/images/login/icon/key.png",
+  import.meta.url
+).href;
 
 /* ==================== 인증 스토어 ==================== */
 
@@ -373,7 +365,7 @@ onMounted(() => {
       - 내부에 왼쪽/오른쪽 섹션을 배치할 때는 여기서 flex를 사용
     */
     display: flex;
-    width: 950px;
+    width: 970px;
     height: 600px;
     background-color: $bg-primary;
     border-radius: 25px;
@@ -402,7 +394,7 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   padding: $spacing-10;
-  max-width: 400px;
+  max-width: 468px;
 
   /* 
     반응형: 작은 화면에서는 전체 너비
@@ -540,7 +532,6 @@ onMounted(() => {
   margin-top: $spacing-xs;
   margin-bottom: $spacing-10;
   margin-left: $spacing-1;
-
   animation: fadeIn 0.5s ease-out 0.5s both;
 }
 
@@ -571,7 +562,7 @@ onMounted(() => {
   */
   background: none;
   border: none;
-  color: $primary-color;
+  color: $gray-500;
   cursor: pointer;
   font-size: $font-size-sm;
   text-decoration: none;
@@ -582,7 +573,6 @@ onMounted(() => {
     호버 효과: 언더라인 + 색상 변경
   */
   &:hover {
-    color: $primary-dark-color;
     text-decoration: underline;
   }
 

@@ -77,8 +77,22 @@
         @click="showPassword = !showPassword"
         :title="showPassword ? '비밀번호 숨기' : '비밀번호 표시'"
       >
-        <span v-if="showPassword">🔓</span>
-        <span v-else>🔒</span>
+        <span v-if="showPassword">
+          <CommonIcon
+            :src="eyeOffIconPath"
+            width="16"
+            height="16"
+            alt="비밀번호 숨기기 아이콘"
+          />
+        </span>
+        <span v-else>
+          <CommonIcon
+            :src="eyeIconPath"
+            width="16"
+            height="16"
+            alt="비밀번호 표시 아이콘"
+          />
+        </span>
       </button>
 
       <!-- 커스텀 우측 아이콘 -->
@@ -116,7 +130,7 @@
  */
 
 import { ref, computed } from "vue";
-
+import CommonIcon from "@/components/icon/CommonIcon.vue";
 /* ==================== Props (부모에서 받는 데이터) ==================== */
 
 /**
@@ -187,6 +201,15 @@ const showPassword = ref(false);
 
 // 포커스 상태 (입력 중인지 여부)
 const isFocused = ref(false);
+
+const eyeIconPath = new URL(
+  "@/assets/images/login/icon/eye.png",
+  import.meta.url
+).href;
+const eyeOffIconPath = new URL(
+  "@/assets/images/login/icon/eye-off.png",
+  import.meta.url
+).href;
 
 /* ==================== Computed (파생 데이터) ==================== */
 
