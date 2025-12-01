@@ -125,7 +125,6 @@ export const useAuthStore = defineStore("auth", () => {
 
       /**
        * 실제 API 호출 코드:
-       *
        * const response = await fetch('/api/auth/login', {
        *   method: 'POST',
        *   headers: { 'Content-Type': 'application/json' },

@@ -101,8 +101,31 @@ app.mount("#app");
  * Vite의 import.meta.env.DEV를 사용하여 개발 환경에서만 로그 출력
  */
 if (import.meta.env.DEV) {
-  console.log("✅ Vue3 애플리케이션 초기화 완료");
+  console.log("✅ [개발] Vue3 애플리케이션 초기화 완료");
   console.log("🎨 스타일 시스템: SCSS (@forward/@use)");
   console.log("🔧 상태관리: Pinia");
   console.log("📦 개발 서버: http://localhost:5173");
+}
+
+if (import.meta.env.PROD) {
+  console.log("✅ [운영] Vue3 애플리케이션 초기화 완료");
+  console.log("🎨 스타일 시스템: SCSS (@forward/@use)");
+  console.log("🔧 상태관리: Pinia");
+  console.log("📦 운영 서버: https://oci-poc-web-service.vercel.app/");
+}
+
+if (import.meta.env.DEV || import.meta.env.PROD) {
+  const existingAdmin = localStorage.getItem("admin_account");
+
+  if (!existingAdmin) {
+    const adminAccount = {
+      id: "aionu",
+      pw: "New1234!",
+    };
+
+    localStorage.setItem("admin_account", JSON.stringify(adminAccount));
+    console.log("🔧 Admin 계정이 자동으로 생성되었습니다:", adminAccount);
+  } else {
+    console.log("✅ Admin 계정이 이미 존재합니다.");
+  }
 }

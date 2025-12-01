@@ -103,15 +103,12 @@ export const MESSAGES = {
  */
 export const STORAGE_KEYS = {
   // 채팅 관련
-  CHAT_MESSAGES: "oci_web_service_chat_messages",
-  CURRENT_AGENT: "oci_web_service_current_agent",
-
+  CHAT_MESSAGES: "works_ai_chat_messages",
   // 사용자 설정
-  USER_PREFERENCES: "oci_web_service_user_preferences",
-
+  USER_PREFERENCES: "works_ai_user_preferences",
   // 인증 관련 (로그인 페이지)
-  SAVED_EMAIL: "oci_web_service_saved_email", // "아이디 저장" 옵션
-  USER_SESSION: "oci_web_service_user_session", // 로그인 세션
+  SAVED_EMAIL: "works_ai_saved_email", // "아이디 저장" 옵션
+  USER_SESSION: "works_ai_user_session", // 로그인 세션 //TODO: 로그인 세션 어떻게 관리되어지는지 확인 필요
 };
 
 /* ==================== 6.유효성 검사 ==================== */
