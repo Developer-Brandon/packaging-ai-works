@@ -49,7 +49,6 @@
 
     <!-- 
       버튼 텍스트/내용
-      
       로딩 중이면 loading 슬롯, 아니면 default 슬롯 사용
     -->
     <span v-if="loading" class="btn-loading-text">

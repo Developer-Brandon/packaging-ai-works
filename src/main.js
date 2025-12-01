@@ -14,7 +14,7 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import App from "./App.vue";
-import router from "./router";
+// import router from "./router";
 
 /**
  * 전역 스타일 import
@@ -60,7 +60,7 @@ const app = createApp(App);
  * - 모듈화되고 트리쉐이킹 가능
  */
 app.use(createPinia());
-app.use(router);
+// app.use(router);
 /* ==================== 전역 프로퍼티 설정 ==================== */
 
 /**
