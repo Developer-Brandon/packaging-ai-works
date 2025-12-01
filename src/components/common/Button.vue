@@ -78,7 +78,7 @@ const props = defineProps({
   /**
    * 버튼 스타일 변형
    *
-   * 'primary': 주요 버튼 (보라색) - 로그인, 제출 등
+   * 'primary': 주요 버튼 (빨간색) - 로그인, 제출 등
    * 'secondary': 보조 버튼 (흰색) - 취소, 이전 등
    * 'danger': 위험 버튼 (빨강) - 삭제, 거절 등
    * 'link': 링크 스타일 버튼 (텍스트만)
@@ -177,7 +177,7 @@ defineEmits(["click"]);
     테두리 및 라운드
   */
   border: none;
-  border-radius: $border-radius-base;
+  border-radius: $border-radius-custom;
 
   /* 
     폰트 설정
@@ -257,7 +257,7 @@ defineEmits(["click"]);
 
 /* ==================== 변형별 스타일 ==================== */
 
-/* Primary 버튼 (주요 - 보라색) */
+/* Primary 버튼 (주요 - 빨간색) */
 .btn-primary {
   background: linear-gradient(135deg, $primary-color 0%, $primary-color 100%);
   color: $white;

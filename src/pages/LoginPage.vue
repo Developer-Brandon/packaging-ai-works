@@ -35,7 +35,7 @@
                 :error="formErrors.password"
                 :disabled="isLoading"
               >
-                <CommonIcon :src="passwrodIconPath" />
+                <CommonIcon :src="passwordIconPath" />
               </InputField>
             </div>
             <!-- ========== 에러 메시지 (전체 폼) ========== -->
@@ -83,6 +83,14 @@
       </div>
     </div>
   </div>
+  <PrimaryPopup
+    v-if="showPopup"
+    :title="popupConfig.title"
+    :message="popupConfig.message"
+    :confirmText="popupConfig.confirmText"
+    @confirm="closePopup"
+    @close="closePopup"
+  />
 </template>
 
 <script setup>
@@ -113,11 +121,13 @@ import InputField from "@/components/common/InputField.vue";
 import Button from "@/components/common/Button.vue";
 import Checkbox from "@/components/common/Checkbox.vue";
 import CommonIcon from "@/components/icon/CommonIcon.vue";
+import PrimaryPopup from "../components/modals/PrimaryPopup.vue";
+
 const emailIconPath = new URL(
   "@/assets/images/login/icon/email.png",
   import.meta.url
 ).href;
-const passwrodIconPath = new URL(
+const passwordIconPath = new URL(
   "@/assets/images/login/icon/key.png",
   import.meta.url
 ).href;
@@ -149,17 +159,25 @@ const authStore = useAuthStore();
  * 스크립트에서: email.value
  */
 
-// 입력 필드 값
+// 입력 필드 관리 변수
 const email = ref("");
 const password = ref("");
 
-// UI 상태
+// UI 상태 관리 변수
 const isLoading = ref(false);
 const rememberEmail = ref(false);
 
-// 에러 처리
+// 에러 처리 관리 변수
 const error = ref(null);
 const formErrors = ref({ email: null, password: null });
+
+// 팝업 상태 관리 변수
+const showPopup = ref(false);
+const popupConfig = ref({
+  title: "",
+  message: "",
+  confirmText: "확인",
+});
 
 /* ==================== Computed (파생 데이터) ==================== */
 
@@ -186,11 +204,18 @@ const isFormValid = computed(() => {
 
 /* ==================== 메서드 (함수) ==================== */
 
-/**
- * 폼 검증
- *
- * @returns {boolean} - 유효한지 여부
- */
+// 팝업 표시 함수
+function showPopupMessage(title, message, confirmText = "확인") {
+  popupConfig.value = { title, message, confirmText };
+  showPopup.value = true;
+}
+
+// 팝업 닫기 함수
+function closePopup() {
+  showPopup.value = false;
+}
+
+// 폼 검증 - @returns {boolean} - 유효한지 여부
 function validateForm() {
   // 에러 초기화
   formErrors.value = { email: null, password: null };
@@ -258,11 +283,9 @@ async function handleLogin() {
       console.log("✅ 로그인 성공");
 
       /**
-       * 추후 라우터 설정 후:
-       * router.push('/dashboard')
-       * 현재는 alert로 확인
+       * 추후 라우터 설정 후 main page로 이동: router.push('/main')
+       * 현재는 그냥 console로만 찍고 바로 routing하도록
        */
-      alert(`환영합니다, ${authStore.userName}님!`);
     } else {
       // 스토어에서 설정한 에러 메시지 표시
       error.value = authStore.error || "로그인 실패";
@@ -278,22 +301,22 @@ async function handleLogin() {
 
 /**
  * 비밀번호 찾기 버튼 클릭
- *
- * 추후: /password-reset 페이지로 이동
  */
 function handleForgotPassword() {
-  alert("비밀번호 찾기 팝업 작업중");
-  // router.push('/password-reset')
+  showPopupMessage(
+    "비밀번호 초기화는 계정 관리자에게 문의해주세요.",
+    "※ 비밀번호 초기화는 17:00~18:00에 일괄 진행됩니다.\n - 계정 관리자 (abc@kt.com) "
+  );
 }
 
 /**
  * 계정 생성 버튼 클릭
- *
- * 추후: /signup 페이지로 이동
  */
 function handleSignup() {
-  alert("계정 생성 팝업 작업중");
-  // router.push('/signup')
+  showPopupMessage(
+    "신규 계정 생성은 계정 관리자에게 문의해주세요.",
+    "※신규계정 생성은 17:00~18:00에 일괄 진행됩니다.\n - 계정 관리자 (abc@kt.com)"
+  );
 }
 
 /* ==================== 라이프사이클 훅 ==================== */
@@ -490,7 +513,7 @@ onMounted(() => {
   padding: $spacing-3;
   background-color: rgba($danger-color, 0.1);
   border-left: 4px solid $danger-color;
-  border-radius: $border-radius-base;
+  border-radius: $border-radius-custom;
   color: $danger-color;
   font-size: $font-size-sm;
 
