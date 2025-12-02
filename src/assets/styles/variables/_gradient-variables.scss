@@ -15,3 +15,74 @@ $gradient-danger: linear-gradient(
   color-variables.$danger-color 0%,
   #c0392b 100%
 );
+
+/**
+ * _gradient-variables.scss
+ * 
+ * 설명:
+ * - 앱 전체에서 사용할 그래디언트 값 관리
+ * - 색상 조합과 방향(각도)을 중앙화
+ * 
+ * Vue3 Tip:
+ * SCSS 변수는 런타임에 변환되므로, 
+ * 동적으로 변경하려면 CSS 변수(Custom Properties)를 사용해야 함
+ */
+
+// ==================== 기본 그래디언트 설정 ====================
+
+/**
+ * $gradient-default
+ * 
+ * 메인 배경 그래디언트 (기본값)
+ * - 시작색: #FFE6F0 (밝은 핑크)
+ * - 종료색: #FFFFFF (흰색)
+ * - 방향: 135도 (좌상단 → 우하단)
+ * 
+ * 적용 예시:
+ * background: $gradient-default;
+ */
+$gradient-default: linear-gradient(135deg, #ffe6f0 0%, #ffffff 100%);
+
+/**
+ * $gradient-alt
+ * 
+ * 대체 그래디언트 (진하게)
+ * - 시작색: #FFC0E0 (더 진한 핑크)
+ * - 종료색: #F5F5F5 (밝은 회색)
+ * - 방향: 135도
+ */
+$gradient-alt: linear-gradient(135deg, #ffc0e0 0%, #f5f5f5 100%);
+
+/**
+ * $gradient-dark
+ * 
+ * 다크 모드용 그래디언트
+ * - 시작색: #2D1B3D (어두운 자주)
+ * - 종료색: #1A1A2E (거의 검은색)
+ * - 방향: 135도
+ */
+$gradient-dark: linear-gradient(135deg, #2d1b3d 0%, #1a1a2e 100%);
+
+// ==================== 그래디언트 각도 상수 ====================
+
+/**
+ * $gradient-angles
+ * 
+ * 자주 사용되는 각도 값들
+ * 방향별 각도:
+ * - 0deg: 아래(↓)
+ * - 45deg: 우하단(↙)
+ * - 90deg: 우(→)
+ * - 135deg: 우하단(↘)
+ * - 180deg: 위(↑)
+ * - 225deg: 좌상단(↖)
+ * - 270deg: 좌(←)
+ * - 315deg: 우상단(↗)
+ */
+$gradient-angle-vertical: 0deg;
+$gradient-angle-diagonal: 135deg;
+$gradient-angle-horizontal: 90deg;
+
+// ==================== Export (필요시) ====================
+// SCSS에서는 자동으로 변수가 스코프됨
+// CSS 변수로 사용해야 동적 변경 가능

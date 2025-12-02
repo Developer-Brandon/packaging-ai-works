@@ -1,10 +1,5 @@
-<!--
-  로그인 페이지 메인 컴포넌트
--->
+<!-- ========== 로그인 페이지 메인 컴포넌트 ========== -->
 <template>
-  <!-- 
-    로그인 페이지 전체 컨테이너
-  -->
   <div class="login-page">
     <div class="login-page__inner">
       <div class="login-form-section">
@@ -78,7 +73,6 @@
       </div>
       <!-- 배경 그라디언트 + 애니메이션 요소들 -->
       <div class="login-graphic-section">
-        <!-- 배경 색상 컨테이너 -->
         <div class="graphic-background"></div>
       </div>
     </div>
@@ -245,7 +239,9 @@ function validateForm() {
     return false;
   }
 
-  if (!isFormValid()) {
+  if (!isFormValid) {
+    formErrors.value.email = "이메일을 입력해주세요.";
+    formErrors.value.password = "비밀번호를 입력해주세요.";
   }
 
   return true;

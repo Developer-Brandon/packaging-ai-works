@@ -10,7 +10,6 @@
  *
  * 사용 예시:
  * import { API_BASE_URL, AGENT_TYPES } from '@/utils/constants'
- *
  * fetch(`${API_BASE_URL}/${AGENT_TYPES.GPT5}`)
  */
 

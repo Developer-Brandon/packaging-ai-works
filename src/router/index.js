@@ -53,7 +53,7 @@ const routes = [
     meta: {
       requiresAuth: true, // 로그인 필수 O
       layout: "MainLayout", // 메인 레이아웃 사용
-      title: "AI Works Main",
+      title: "AI Works",
     },
   },
   // 3. notfound page - 404 페이지
