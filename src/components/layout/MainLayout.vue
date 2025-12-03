@@ -94,7 +94,7 @@
 
 import { ref, onMounted, onUnmounted } from "vue";
 import MainSidebar from "@/components/sidebar/MainSidebar.vue";
-import { useGradient } from "@/composables/useGradient";
+import { useGradient } from "@/composables/useGradient.js";
 
 /* ==================== 반응형 상태 (State) ==================== */
 
@@ -131,7 +131,7 @@ const isMobileOrTablet = ref(false);
  * - setGradient(): 함수 - 그래디언트 설정
  * - resetGradient(): 함수 - 그래디언트 초기화
  */
-const { gradientObject, setGradient, resetGradient } = useGradient();
+const { gradientObject, setGradient } = useGradient(); // resetGradient
 
 /* ==================== 메서드 (Methods) ==================== */
 
