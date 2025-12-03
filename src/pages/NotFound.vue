@@ -4,21 +4,7 @@
       <!-- 404 숫자 애니메이션 -->
       <div class="error-code">
         <span class="digit" :style="{ animationDelay: '0s' }">4</span>
-        <span class="digit-zero" :style="{ animationDelay: '0.1s' }">
-          <svg viewBox="0 0 100 100" class="zero-svg">
-            <circle
-              cx="50"
-              cy="50"
-              r="45"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-dasharray="283"
-              stroke-dashoffset="283"
-              class="zero-circle"
-            />
-          </svg>
-        </span>
+        <span class="digit" :style="{ animationDelay: '0.1s' }">0</span>
         <span class="digit" :style="{ animationDelay: '0.2s' }">4</span>
       </div>
 
@@ -32,7 +18,7 @@
       <!-- 서브 메시지 -->
       <p class="sub-message">
         요청하신 페이지를 찾을 수 없습니다.<br />
-        URL을 다시 확인해주시거나 홈으로 돌아가주세요.
+        URL을 다시 확인해주시거나 메인으로 돌아가주세요.
       </p>
 
       <!-- 버튼 그룹 -->
@@ -49,20 +35,6 @@
             <path d="M19 12H5M12 19l-7-7 7-7" />
           </svg>
           <span>이전 페이지</span>
-        </button>
-        <button @click="goHome" class="btn btn-home">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-            <polyline points="9 22 9 12 15 12 15 22" />
-          </svg>
-          <span>홈으로</span>
         </button>
       </div>
 
@@ -95,10 +67,6 @@ const goBack = () => {
   } else {
     router.push("/");
   }
-};
-
-const goHome = () => {
-  router.push("/");
 };
 </script>
 
@@ -173,31 +141,6 @@ const goHome = () => {
   animation: fadeInUp 0.8s ease-out forwards;
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.1),
     0 0 40px rgba(255, 255, 255, 0.05);
-}
-
-.digit-zero {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  opacity: 0;
-  animation: fadeInUp 0.8s ease-out forwards;
-}
-
-.zero-svg {
-  width: 100%;
-  height: 100%;
-  color: #ffffff;
-  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.1));
-}
-
-.zero-circle {
-  animation: drawCircle 1.5s ease-out 0.1s forwards;
-}
-
-@keyframes drawCircle {
-  to {
-    stroke-dashoffset: 0;
-  }
 }
 
 @keyframes fadeInUp {
@@ -289,7 +232,6 @@ const goHome = () => {
   padding: 1rem 2rem;
   font-size: 1rem;
   font-weight: 600;
-  border: 2px solid #333333;
   background: transparent;
   color: #ffffff;
   cursor: pointer;
@@ -297,6 +239,8 @@ const goHome = () => {
   position: relative;
   overflow: hidden;
   font-family: inherit;
+  border: 2px solid #333333;
+  border-radius: 25px;
 }
 
 .btn::before {
@@ -335,10 +279,6 @@ const goHome = () => {
 
 .btn:hover svg {
   transform: translateX(-3px);
-}
-
-.btn-home:hover svg {
-  transform: scale(1.1);
 }
 
 .btn span {
