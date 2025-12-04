@@ -8,7 +8,5 @@ const props = defineProps({
   alt: String,
   size: { type: Number, default: 18 },
 });
-
-// const isRemote = (url) => /^https?:\/\//.test(url);
 const resolvedSrc = props.src;
 </script>

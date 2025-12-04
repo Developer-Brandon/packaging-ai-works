@@ -108,29 +108,9 @@
 </template>
 
 <script setup>
-/**
- * MainSidebar.vue - 메인 페이지 왼쪽 사이드바
- *
- * Props:
- * - isOpen: 부모(MainLayout)에서 전달받은 열림 상태
- *
- * Emits:
- * - close: 사이드바 닫기 (채팅 선택 시 모바일에서만)
- */
-
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
-
-/* ==================== Props & Emits ==================== */
-const props = defineProps({
-  isOpen: {
-    type: Boolean,
-    required: true,
-  },
-});
-
-const emit = defineEmits(["close"]);
 
 /* ==================== 라우터 및 스토어 ==================== */
 const router = useRouter();
@@ -205,9 +185,6 @@ const startNewChat = () => {
 
   activeChatId.value = newChat.id;
   searchQuery.value = "";
-
-  // 모바일에서 사이드바 닫기
-  emit("close");
 };
 
 const selectChat = (chat) => {
@@ -252,7 +229,7 @@ const logout = () => {
   /* Flexbox 수직 정렬 */
   display: flex;
   flex-direction: column;
-  width: 264px;
+  width: 100%;
   height: 100%;
   background-color: var.$bg-primary;
   border-right: 1px solid var.$gray-200;
@@ -345,7 +322,8 @@ const logout = () => {
 .sidebar__search {
   /* 검색 영역 */
   position: relative;
-  margin: 32px 24px;
+  margin: var.$spacing-5;
+  margin-top: var.$spacing-8;
   flex-shrink: 0;
 }
 

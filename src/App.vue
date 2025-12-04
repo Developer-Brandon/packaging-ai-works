@@ -41,8 +41,8 @@ import { useRoute } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 
 // ==================== layout 컴포넌트 import ====================
-import AuthLayout from "@/components/layout/AuthLayout.vue";
-import MainLayout from "@/components/layout/MainLayout.vue";
+import AuthLayout from "@/layout/AuthLayout.vue";
+import MainLayout from "@/layout/MainLayout.vue";
 
 // ==================== router 및 store ====================
 const route = useRoute();
