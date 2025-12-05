@@ -1,5 +1,0 @@
-# SPA 라우팅을 위한 리다이렉트 설정
-# API 경로는 제외하고 모든 경로를 index.html로 리다이렉트
-
-/api/*  /api/:splat  200
-/*      /index.html  200
