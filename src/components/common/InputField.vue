@@ -271,8 +271,8 @@ const inputType = computed(() => {
     포커스 상태: 보라색 테두리 + 그림자
   */
   &:has(.input-field:focus) {
-    border-color: $primary-color;
-    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-color), 0.1);
   }
 
   /* 비활성화 상태: 흐린 배경 */
@@ -297,7 +297,7 @@ const inputType = computed(() => {
 
   /* 포커스 시 아이콘 색상 변경 */
   .input-wrapper:has(.input-field:focus) & {
-    color: $primary-color;
+    color: var(--primary-color);
     transition: color $transition-base;
   }
 }
@@ -342,7 +342,7 @@ const inputType = computed(() => {
   /* 
     커서 색상
   */
-  caret-color: $primary-color;
+  caret-color: var(--primary-color);
 
   /* 
     비활성화 상태
@@ -386,7 +386,7 @@ const inputType = computed(() => {
     호버 효과: 색상 변경 및 확대
   */
   &:hover {
-    color: $primary-color;
+    color: var(--primary-color);
     transform: scale(1.1);
   }
 
@@ -394,7 +394,7 @@ const inputType = computed(() => {
     포커스 효과 (키보드 접근성)
   */
   &:focus {
-    outline: 2px solid $primary-color;
+    outline: 2px solid var(--primary-color);
     outline-offset: 2px;
     border-radius: 4px;
   }

@@ -6,7 +6,9 @@
         <div class="login-container">
           <div class="login-header">
             <h1 class="login-title">로그인</h1>
-            <p class="login-subtitle">OCI AI Works 에 오신것을 환영합니다</p>
+            <p class="login-subtitle">
+              {{ configStore.office }} AI Works 에 오신것을 환영합니다
+            </p>
           </div>
           <form class="login-form" @submit.prevent="handleLogin">
             <!-- ========== 이메일 입력 필드 ========== -->
@@ -118,6 +120,7 @@ import CommonIcon from "@/components/icon/CommonIcon.vue";
 import PrimaryPopup from "@/components/modals/PrimaryPopup.vue";
 import { useRouter } from "vue-router";
 import { STORAGE_KEYS } from "@/utils/constants";
+import { useConfigStore } from "@/stores/configStore";
 
 const emailIconPath = new URL(
   "@/assets/images/login/icon/email.png",
@@ -137,7 +140,7 @@ const router = useRouter();
  * 이제 authStore.login(), authStore.user 등 사용 가능
  */
 const authStore = useAuthStore();
-
+const configStore = useConfigStore();
 /* ==================== Refs (리액티브 상태) ==================== */
 
 /**
@@ -555,10 +558,6 @@ onMounted(() => {
   border-radius: $border-radius-custom;
   color: $danger-color;
   font-size: $font-size-sm;
-
-  /* 
-    슬라이드인 애니메이션
-  */
   animation: slideDown 0.3s ease-out;
 }
 
@@ -621,7 +620,7 @@ onMounted(() => {
     포커스 효과 (접근성)
   */
   &:focus {
-    outline: 2px solid $primary-color;
+    outline: 2px solid var(--primary-color);
     outline-offset: 2px;
     border-radius: 2px;
   }
@@ -665,7 +664,10 @@ onMounted(() => {
 .graphic-background {
   width: 100%;
   height: 100%;
-  background-image: url("@/assets/images/login/banner/pannel.png");
+  background-image: var(
+    --login-pannel-image,
+    url("@/assets/images/login/banner/pannel.png")
+  );
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

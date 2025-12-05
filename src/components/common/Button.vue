@@ -204,7 +204,7 @@ defineEmits(["click"]);
     포커스 스타일 (키보드 접근성)
   */
   &:focus {
-    outline: 2px solid $primary-color;
+    outline: 2px solid var(--primary-color);
     outline-offset: 2px;
   }
 
@@ -258,7 +258,11 @@ defineEmits(["click"]);
 
 /* Primary 버튼 (주요 - 빨간색) */
 .btn-primary {
-  background: linear-gradient(135deg, $primary-color 0%, $primary-color 100%);
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--primary-color) 100%
+  );
   color: $white;
   box-shadow: $shadow-md;
 
@@ -281,15 +285,15 @@ defineEmits(["click"]);
 /* Secondary 버튼 (보조 - 흰색 테두리) */
 .btn-secondary {
   background-color: $white;
-  color: $primary-color;
-  border: 2px solid $primary-color;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
 
   &:hover:not(:disabled) {
-    background-color: rgba($primary-color, 0.05);
+    background-color: rgba(var(--primary-color), 0.05);
   }
 
   &:active:not(:disabled) {
-    background-color: rgba($primary-color, 0.1);
+    background-color: rgba(var(--primary-color), 0.1);
   }
 }
 
@@ -301,7 +305,7 @@ defineEmits(["click"]);
   &:hover:not(:disabled) {
     box-shadow: $shadow-md;
     transform: translateY(-2px);
-    background-color: $primary-pure-color;
+    background-color: var(--primary-color);
   }
 
   &:active:not(:disabled) {
@@ -312,13 +316,8 @@ defineEmits(["click"]);
 /* Link 버튼 (링크 스타일 - 텍스트만) */
 .btn-link {
   background-color: transparent;
-  color: $primary-color;
+  color: var(--primary-color);
   padding: 0;
-
-  &:hover:not(:disabled) {
-    text-decoration: underline;
-    color: $primary-dark-color;
-  }
 }
 
 /* ==================== 로딩 상태 ==================== */
@@ -348,8 +347,8 @@ defineEmits(["click"]);
     Dark 변형: 다른 색상 사용
   */
   .btn-secondary & {
-    border-color: rgba($primary-color, 0.3);
-    border-top-color: $primary-color;
+    border-color: rgba(var(--primary-color), 0.3);
+    border-top-color: var(--primary-color);
   }
 }
 

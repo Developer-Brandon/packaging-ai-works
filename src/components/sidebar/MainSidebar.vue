@@ -1,12 +1,11 @@
 <!-- src/components/sidebar/MainSidebar.vue -->
 <template>
   <aside class="sidebar">
-    <!-- ==================== SideBar Header (로고만) ==================== -->
+    <!-- ==================== 로고 ==================== -->
     <div class="sidebar__header">
-      <!-- 로고 -->
       <div class="sidebar__logo">
         <img
-          src="@/assets/images/logo/logo.ico"
+          :src="configStore.logoImageUrl"
           alt="AI Works Logo"
           class="sidebar__logo-image"
         />
@@ -27,7 +26,10 @@
         class="sidebar__search-input"
         @input="handleSearch"
       />
-      <span class="sidebar__search-icon">🔍</span>
+      <img
+        class="sidebar__search-icon"
+        src="@/assets/images/main/icon/mynaui_sidebar_searching_icon.png"
+      />
     </div>
 
     <!-- ==================== 채팅 히스토리 섹션 ==================== -->
@@ -111,10 +113,12 @@
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
+import { useConfigStore } from "@/stores/configStore";
 
 /* ==================== 라우터 및 스토어 ==================== */
 const router = useRouter();
 const authStore = useAuthStore();
+const configStore = useConfigStore();
 
 /* ==================== 반응형 상태 (State) ==================== */
 
@@ -287,10 +291,10 @@ const logout = () => {
   margin: 0 var.$spacing-6;
   margin-top: 28px;
   padding: var.$spacing-3 var.$spacing-4;
-  border: 2px solid var.$red;
+  border: 2px solid var(--primary-color);
   border-radius: 8px;
   background-color: transparent;
-  color: var.$red;
+  color: var(--primary-color);
   font-weight: 600;
   font-size: 14px;
   display: flex;
@@ -300,7 +304,7 @@ const logout = () => {
   height: 35px;
 
   &:hover {
-    background-color: var.$red;
+    background-color: var(--primary-color);
     color: var.$white;
     transform: scale(1.02);
     box-shadow: 0 4px 12px rgba(208, 2, 27, 0.2);
@@ -322,39 +326,43 @@ const logout = () => {
 .sidebar__search {
   /* 검색 영역 */
   position: relative;
-  margin: var.$spacing-5;
-  margin-top: var.$spacing-8;
+  margin: 32px 24px;
   flex-shrink: 0;
 }
 
 .sidebar__search-input {
-  /* 검색 입력 필드 */
+  /* 언더바 스타일의 검색 입력 필드 */
   width: 100%;
-  padding: var.$spacing-3;
-  border: 1px solid var.$gray-200;
-  border-radius: 8px;
-  background-color: var.$gray-50;
-  font-size: 14px;
-  color: var.$text-primary;
-  transition: all 0.2s ease;
+  padding-right: 30px; /* 아이콘 공간 확보 */
+  border: none;
+  border-bottom: 2px solid #5d5d5d; /* 언더바만 표시 */
+  border-radius: 0;
+  background-color: transparent; /* 배경 투명 */
+  font-size: 16px;
+  color: #333;
 
   &::placeholder {
-    color: var.$text-muted;
+    color: #999;
   }
 
+  /* 포커스 상태 */
   &:focus {
     outline: none;
-    border-color: var.$primary-color;
-    background-color: var.$white;
-    box-shadow: 0 0 0 3px rgba(208, 2, 27, 0.1);
-    animation: scaleIn 0.2s ease-out;
+    border-bottom-color: var(--primary-color); /* 레드 색상 */
+    /* 언더바가 확장되는 애니메이션 효과 */
+    animation: underlineExpand 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  /* 입력값이 있을 때 */
+  &:not(:placeholder-shown) {
+    border-bottom-color: #333;
   }
 }
 
 .sidebar__search-icon {
   /* 검색 아이콘 */
   position: absolute;
-  right: var.$spacing-3;
+  right: var.$spacing-4;
   top: 50%;
   transform: translateY(-50%);
   color: var.$text-muted;
@@ -367,7 +375,7 @@ const logout = () => {
   /* 채팅 목록 영역 (스크롤 가능) */
   flex: 1;
   overflow-y: auto;
-  padding: var.$spacing-4 0;
+  padding: var.$spacing-4 24px;
 
   /* 스크롤바 스타일 */
   &::-webkit-scrollbar {
@@ -400,8 +408,8 @@ const logout = () => {
   color: var.$text-muted;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  padding: var.$spacing-2 var.$spacing-4;
   margin: 0;
+  margin-bottom: 16px;
 }
 
 .sidebar__chat-list {
@@ -413,7 +421,7 @@ const logout = () => {
 
 .sidebar__chat-item {
   /* 개별 채팅 항목 */
-  padding: var.$spacing-3 var.$spacing-4;
+  padding: 8px 4px;
   color: var.$text-secondary;
   font-size: 14px;
   cursor: pointer;
@@ -438,9 +446,9 @@ const logout = () => {
   /* 활성 상태 */
   &.sidebar__chat-item--active {
     background-color: var.$gray-100;
-    color: var.$primary-color;
+    color: var(--primary-color);
     font-weight: 600;
-    border-left: 3px solid var.$primary-color;
+    border-left: 3px solid var(--primary-color);
     padding-left: calc(var.$spacing-4 - 3px);
   }
 }

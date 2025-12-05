@@ -1,37 +1,14 @@
 <!-- src/layouts/MainLayout.vue -->
 <template>
   <div class="main-layout">
-    <!-- 
-      ✅ 토글 버튼을 SideBar 밖에 배치
-      모든 화면에서 항상 보임
-    -->
-    <!-- <button
-      class="layout__sidebar-toggle"
-      @click="toggleSidebar"
-      :title="isSidebarOpen ? '사이드바 닫기' : '사이드바 열기'"
-      :aria-label="isSidebarOpen ? '사이드바 닫기' : '사이드바 열기'"
-    >
-      <span class="layout__toggle-icon">
-        {{ isSidebarOpen ? "✕" : "☰" }}
-      </span>
-    </button> -->
-
-    <!-- SideBar (토글 상태에 따라 열고 닫힘) -->
+    <!-- SideBar -->
     <MainSidebar :is-open="isSidebarOpen" @close="closeSidebar" />
-
-    <!-- 메인 콘텐츠 영역 -->
-    <!-- ✅ :style="gradientObject" 추가 - 동적 그래디언트 적용 -->
+    <!-- Main Conent -->
+    <!-- ✅ :style="gradientObject" -->
     <main class="content-area" :style="gradientObject">
       <router-view />
     </main>
   </div>
-
-  <!-- 모바일/태블릿 오버레이 -->
-  <div
-    v-if="isSidebarOpen && isMobileOrTablet"
-    class="layout__overlay"
-    @click="closeSidebar"
-  ></div>
 </template>
 
 <script setup>
@@ -95,7 +72,9 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import MainSidebar from "@/components/sidebar/MainSidebar.vue";
 import { useGradient } from "@/composables/useGradient.js";
+import { useConfigStore } from "@/stores/configStore";
 
+const configStore = useConfigStore();
 /* ==================== 반응형 상태 (State) ==================== */
 
 /**
@@ -105,11 +84,6 @@ import { useGradient } from "@/composables/useGradient.js";
  * Tablet/Mobile: 초기값 false (기본 닫혀있음)
  */
 const isSidebarOpen = ref(true);
-
-/**
- * isMobileOrTablet: 현재 모바일 또는 태블릿 화면인지 확인
- */
-const isMobileOrTablet = ref(false);
 
 /* ==================== Composable 연동 (동적 그래디언트) ==================== */
 
@@ -129,62 +103,8 @@ const isMobileOrTablet = ref(false);
  * - gradientAngle: ref - 그래디언트 각도 (135)
  * - gradientObject: computed - CSS 스타일 객체
  * - setGradient(): 함수 - 그래디언트 설정
- * - resetGradient(): 함수 - 그래디언트 초기화
  */
 const { gradientObject, setGradient } = useGradient(); // resetGradient
-
-/* ==================== 메서드 (Methods) ==================== */
-
-/**
- * toggleSidebar: SideBar 열고 닫기 토글
- *
- * Vue2와의 비교:
- * - Vue2: this.isSidebarOpen = !this.isSidebarOpen
- * - Vue3: isSidebarOpen.value = !isSidebarOpen.value (ref 사용)
- */
-const toggleSidebar = () => {
-  console.log("🔄 SideBar 토글:", !isSidebarOpen.value);
-  isSidebarOpen.value = !isSidebarOpen.value;
-};
-
-/**
- * closeSidebar: SideBar 닫기
- *
- * 동작:
- * - 모바일/태블릿에서만 자동으로 닫기
- * - Desktop에서는 열린 상태 유지
- */
-const closeSidebar = () => {
-  console.log("👈 SideBar 닫기");
-  // 모바일/태블릿에서만 자동으로 닫기
-  if (isMobileOrTablet.value) {
-    isSidebarOpen.value = false;
-  }
-};
-
-/**
- * handleWindowResize: 창 크기 변경 감지
- *
- * 반응형 동작:
- * 1. 현재 창 너비 확인
- * 2. 1024px 이하: 모바일/태블릿 모드
- * 3. 1024px 초과: Desktop 모드 (SideBar 항상 열기)
- *
- * Vue2와의 비교:
- * - Vue2: window.innerWidth > 1024 ? this.sidebarOpen = true : ...
- * - Vue3: 동일한 로직이지만 ref().value로 접근
- */
-const handleWindowResize = () => {
-  const width = window.innerWidth;
-
-  // 1024px 이하: 모바일/태블릿 모드
-  isMobileOrTablet.value = width <= 1024;
-
-  // Desktop: 항상 열려있음
-  if (width > 1024) {
-    isSidebarOpen.value = true;
-  }
-};
 
 /**
  * initializeGradient: 그래디언트 초기화
@@ -207,13 +127,16 @@ const handleWindowResize = () => {
  * ```
  */
 const initializeGradient = () => {
-  console.log("🎨 MainLayout 그래디언트 초기화");
+  console.log("🎨 MainLayout 그래디언트 동적 초기화");
 
-  // 현재는 기본값 사용
-  // setGradient('#FFE6F0', '#FFFFFF', 135)
-
-  // 또는 resetGradient()를 호출하면 됨
-  // resetGradient()
+  //  * 1. 그래디언트 초기화
+  // * 2. 초기 화면 크기 감지
+  // * 3. 창 크기 변경 이벤트 등록
+  // 파란 - #6A8DFF
+  // 노란 - #FFF799
+  // 검은 - #555555
+  // 빨강 - #FFE6F0
+  setGradient(configStore.backgroundGradientStandardColor, "#FFFFFF", 360);
 
   // 추후 서버에서 받은 값으로 동적 적용:
   // const config = await fetchConfigFromServer()
@@ -221,54 +144,11 @@ const initializeGradient = () => {
 };
 
 /* ==================== 라이프사이클 ==================== */
-
-/**
- * onMounted: 컴포넌트 마운트 후 실행
- *
- * Vue2 vs Vue3:
- * - Vue2: mounted() { ... }
- * - Vue3: onMounted(() => { ... })
- *
- * 역할:
- * 1. 그래디언트 초기화
- * 2. 초기 화면 크기 감지
- * 3. 창 크기 변경 이벤트 등록
- */
 onMounted(() => {
   console.log("✅ MainLayout 마운트됨");
 
   // ✅ 그래디언트 초기화 추가
   initializeGradient();
-
-  // 초기 화면 크기 감지
-  handleWindowResize();
-
-  // 창 크기 변경 이벤트 등록
-  window.addEventListener("resize", handleWindowResize);
-
-  setGradient("#FFE6F0", "#FFFFFF", 360);
-
-  // 파란 - #6A8DFF
-  // 노란 - #FFF799
-  // 검은 - #555555
-  // 빨강 - #FFE6F0
-});
-
-/**
- * onUnmounted: 컴포넌트 언마운트 시 실행
- *
- * Vue2 vs Vue3:
- * - Vue2: beforeDestroy() { ... }
- * - Vue3: onUnmounted(() => { ... })
- *
- * 역할:
- * - 이벤트 리스너 제거 (메모리 누수 방지)
- */
-onUnmounted(() => {
-  console.log("❌ MainLayout 언마운트됨");
-
-  // 이벤트 리스너 제거
-  window.removeEventListener("resize", handleWindowResize);
 });
 </script>
 
@@ -279,14 +159,6 @@ onUnmounted(() => {
 .main-layout {
   /* 
     Grid 레이아웃
-    
-    Desktop (1024px 초과):
-    - grid-template-columns: 250px 1fr
-    - SideBar: 항상 표시
-    
-    Tablet/Mobile (1024px 이하):
-    - grid-template-columns: 1fr
-    - SideBar: 절대위치 고정 (토글)
   */
   display: grid;
   grid-template-columns: 250px 1fr;
@@ -339,9 +211,9 @@ onUnmounted(() => {
 
   /* 호버 효과 */
   &:hover {
-    background-color: var.$primary-color;
+    background-color: var(--primary-color);
     color: var.$white;
-    border-color: var.$primary-color;
+    border-color: var(--primary-color);
     box-shadow: 0 4px 12px rgba(208, 2, 27, 0.25);
     transform: scale(1.1);
   }
@@ -372,18 +244,7 @@ onUnmounted(() => {
 }
 
 /* ==================== 메인 콘텐츠 영역 ==================== */
-.content-area {
-  /* 
-    Grid의 두 번째 셀 (또는 첫 번째 셀 모바일)
-  */
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-
-  /* 스크롤 가능 */
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  /**
+/**
    * ✅ 동적 그래디언트 배경
    * 
    * 이전 (고정 색상):
@@ -403,7 +264,17 @@ onUnmounted(() => {
    * - Vue2: data의 gradientStyle을 직접 수정하면 리렌더링
    * - Vue3: ref나 computed가 변경되면 자동으로 리렌더링 (더 효율적)
    */
-  /* background-color: var.$bg-primary; */ /* ❌ 이전 고정 배경색 (주석 처리) */
+
+.content-area {
+  /* 
+    Grid의 두 번째 셀 (또는 첫 번째 셀 모바일)
+  */
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+
+  /* 스크롤 가능 */
+  overflow-y: auto;
+  overflow-x: hidden;
 
   /* 마진/패딩 제거 */
   margin: 0;

@@ -46,7 +46,6 @@ import { ref, computed } from "vue";
  * @returns {Ref<number>} gradientAngle - 그래디언트 각도 (기본값: 135도)
  * @returns {ComputedRef<string>} gradientStyle - 계산된 CSS 그래디언트 문자열
  * @returns {Function} setGradient - 그래디언트 설정 함수
- * @returns {Function} resetGradient - 그래디언트 초기화 함수
  * @returns {Function} isValidHex - hex 코드 유효성 검사
  */
 export function useGradient() {
@@ -176,19 +175,6 @@ export function useGradient() {
     return true;
   };
 
-  /**
-   * resetGradient()
-   *
-   * 그래디언트를 기본값으로 초기화
-   * - 시작색: #FFE6F0
-   * - 종료색: #FFFFFF
-   * - 각도: 135도
-   */
-  const resetGradient = () => {
-    console.log("🔄 Gradient 초기화");
-    setGradient("#FFE6F0", "#FFFFFF", 235);
-  };
-
   // ==================== Return (Composable이 제공하는 API) ====================
 
   return {
@@ -196,14 +182,11 @@ export function useGradient() {
     gradientStartColor,
     gradientEndColor,
     gradientAngle,
-
     // 계산된 속성
     gradientStyle,
     gradientObject,
-
     // 메서드
     setGradient,
-    resetGradient,
     isValidHex,
   };
 }

@@ -181,7 +181,7 @@ const messages = getData(STORAGE_KEYS.CHAT_MESSAGES, []);
 ```scss
 // variables.scss에서 정의된 변수 사용
 .button {
-  background-color: $primary-color;
+  background-color: var(--primary-color);
   padding: $spacing-md;
   border-radius: $border-radius-base;
   transition: $transition-base;

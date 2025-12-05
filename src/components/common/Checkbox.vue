@@ -171,7 +171,7 @@ defineEmits(["update:modelValue"]);
   */
   &:focus + .checkbox-label {
     .checkbox-box {
-      outline: 2px solid $primary-color;
+      outline: 2px solid var(--primary-color);
       outline-offset: 2px;
     }
   }
@@ -232,23 +232,27 @@ defineEmits(["update:modelValue"]);
     호버 효과 (마우스 오버)
   */
   .checkbox-label:hover & {
-    border-color: $primary-color;
-    background-color: rgba($primary-color, 0.05);
+    border-color: var(--primary-color);
+    background-color: rgba(var(--primary-color), 0.05);
   }
 
   /* 
     체크됨 상태
   */
   &.checkbox-box-checked {
-    background: linear-gradient(135deg, $primary-color 0%, $primary-color 100%);
-    border-color: $primary-dark-color;
-    box-shadow: 0 2px 8px rgba($primary-color, 0.3);
+    background: linear-gradient(
+      135deg,
+      var(--primary-color) 0%,
+      var(--primary-color) 100%
+    );
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(var(--primary-color), 0.3);
 
     /* 
       체크됨 상태에서 호버
     */
     .checkbox-label:hover & {
-      box-shadow: 0 4px 12px rgba($primary-color, 0.4);
+      box-shadow: 0 4px 12px rgba(var(--primary-color), 0.4);
     }
   }
 }
