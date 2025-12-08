@@ -143,7 +143,7 @@ const selectAgent = () => {
 
 .agent-description {
   /* 에이전트 설명 텍스트 */
-  font-size: 1.2rem; /* 14px */
+  font-size: 1rem; /* 14px */
   color: $text-secondary;
   line-height: 1.6;
   margin: 0;

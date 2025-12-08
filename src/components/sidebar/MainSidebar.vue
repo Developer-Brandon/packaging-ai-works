@@ -933,17 +933,13 @@ onUnmounted(() => {
   background: none;
   border: none;
   cursor: pointer;
-
   display: flex;
   align-items: center;
   gap: var.$spacing-3;
-
   padding: var.$spacing-2 var.$spacing-4;
-
   font-size: var.$font-size-sm;
   color: var.$text-primary;
   text-align: left;
-
   transition: all 0.2s ease;
 
   &:hover {
