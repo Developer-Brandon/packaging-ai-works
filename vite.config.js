@@ -7,9 +7,6 @@ export default defineConfig({
   plugins: [vue()],
   // 1. 경로(모듈) 관련 설정
   resolve: {
-    // 경로 별칭 설정
-    // 이렇게 하면 import할 때 '@/' 로 src 폴더를 바로 참조 가능
-    // 예: import Button from '@/components/common/Button.vue'
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },

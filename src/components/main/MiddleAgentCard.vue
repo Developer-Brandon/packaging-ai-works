@@ -125,10 +125,7 @@ const selectAgent = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  /* 호버 시 회전 애니메이션 */
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); /* 호버 시 회전 애니메이션 */
   .agent-card:hover & {
     transform: rotate(10deg) scale(1.05);
   }

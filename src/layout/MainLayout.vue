@@ -2,9 +2,12 @@
 <template>
   <div class="main-layout">
     <!-- SideBar -->
-    <MainSidebar :is-open="isSidebarOpen" @close="closeSidebar" />
+    <MainSidebar
+      class="main-sidebar"
+      :is-open="isSidebarOpen"
+      @close="closeSidebar"
+    />
     <!-- Main Conent -->
-    <!-- ✅ :style="gradientObject" -->
     <main class="content-area" :style="gradientObject">
       <router-view />
     </main>
@@ -69,7 +72,7 @@
  * - 더 나은 TypeScript 지원
  */
 
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted } from "vue";
 import MainSidebar from "@/components/sidebar/MainSidebar.vue";
 import { useGradient } from "@/composables/useGradient.js";
 import { useConfigStore } from "@/stores/configStore";
@@ -129,18 +132,15 @@ const { gradientObject, setGradient } = useGradient(); // resetGradient
 const initializeGradient = () => {
   console.log("🎨 MainLayout 그래디언트 동적 초기화");
 
-  //  * 1. 그래디언트 초기화
-  // * 2. 초기 화면 크기 감지
-  // * 3. 창 크기 변경 이벤트 등록
+  //  * 그래디언트 초기화
   // 파란 - #6A8DFF
   // 노란 - #FFF799
   // 검은 - #555555
   // 빨강 - #FFE6F0
-  setGradient(configStore.backgroundGradientStandardColor, "#FFFFFF", 360);
-
   // 추후 서버에서 받은 값으로 동적 적용:
   // const config = await fetchConfigFromServer()
   // setGradient(config.gradientStart, config.gradientEnd, config.angle)
+  setGradient(configStore.backgroundGradientStandardColor, "#FFFFFF", 360);
 };
 
 /* ==================== 라이프사이클 ==================== */
@@ -169,80 +169,6 @@ onMounted(() => {
   margin: 0;
   padding: 0;
 }
-
-/* ==================== SideBar 토글 버튼 ==================== */
-.layout__sidebar-toggle {
-  /* 
-    ✅ SideBar 토글 버튼
-    
-    위치: 모든 화면에서 항상 표시
-    - Desktop: SideBar 왼쪽 상단
-    - Mobile: 화면 왼쪽 상단
-    
-    디자인: 원형 버튼 (더 이쁜 스타일)
-  */
-  position: fixed;
-  left: 16px;
-  top: 16px;
-  z-index: 1000;
-
-  /* 원형 버튼 */
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-
-  /* 배경: 반투명 흰색 */
-  background-color: var.$white;
-  border: 2px solid var.$gray-200;
-
-  /* 텍스트 스타일 */
-  color: var.$text-primary;
-  font-size: 20px;
-  font-weight: 600;
-
-  /* 버튼 스타일 */
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  /* 전환 효과 */
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-
-  /* 호버 효과 */
-  &:hover {
-    background-color: var(--primary-color);
-    color: var.$white;
-    border-color: var(--primary-color);
-    box-shadow: 0 4px 12px rgba(208, 2, 27, 0.25);
-    transform: scale(1.1);
-  }
-
-  /* 클릭 효과 */
-  &:active {
-    transform: scale(0.95);
-  }
-
-  /* Desktop: SideBar 내부에 위치하지 않도록 조정 */
-  @media (min-width: 1025px) {
-    left: 266px; /* SideBar(250px) + 16px padding */
-  }
-
-  /* Tablet/Mobile: 화면 왼쪽 상단 */
-  @media (max-width: 1024px) {
-    left: 16px;
-  }
-}
-
-.layout__toggle-icon {
-  /* 토글 아이콘 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-}
-
 /* ==================== 메인 콘텐츠 영역 ==================== */
 /**
    * ✅ 동적 그래디언트 배경
@@ -299,45 +225,26 @@ onMounted(() => {
   }
 }
 
-/* ==================== 모바일/태블릿 오버레이 ==================== */
-.layout__overlay {
-  /* 
-    SideBar 열렸을 때의 배경 오버레이
-    
-    모바일/태블릿에서만 표시
-  */
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 998;
-  animation: fadeIn 0.3s ease-out;
-}
-
 /* ==================== 반응형 디자인 ==================== */
 
 /* Tablet/Mobile (1024px 이하) */
 @media (max-width: 1024px) {
   .main-layout {
     /* 1열로 변경 */
-    grid-template-columns: 1fr;
+    grid-template-columns: 2fr;
+    .main-sidebar {
+      grid-column: 1 / 2;
+    }
   }
 
   .content-area {
     /* 첫 번째 열 */
-    grid-column: 1 / 2;
+    grid-column: 2 / 2;
   }
 }
 
 /* Mobile (768px 이하) */
 @media (max-width: 768px) {
-  .layout__sidebar-toggle {
-    /* 모바일: 더 작은 크기 */
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
-  }
+  //
 }
 </style>

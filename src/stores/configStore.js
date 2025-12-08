@@ -42,7 +42,6 @@ export const useConfigStore = defineStore("config", () => {
   const error = ref(null);
 
   // Getters - Common (공통 설정)
-
   /**
    * 회사명 (Office)
    * 예: "OCI"
@@ -66,6 +65,13 @@ export const useConfigStore = defineStore("config", () => {
   const faviconImageUrl = computed(() => {
     const base = imageServerUrl.value;
     const path = serverConfig.value?.data?.info?.common?.faviconImageUrl || "";
+    return base + path;
+  });
+
+  const defaultProfileImage = computed(() => {
+    const base = imageServerUrl.value;
+    const path =
+      serverConfig.value?.data?.info?.login?.defaultProfileImage || "";
     return base + path;
   });
 
@@ -298,6 +304,7 @@ export const useConfigStore = defineStore("config", () => {
               backgroundGradientStandardColor: "#F7EFEF",
             },
             login: {
+              defaultProfileImage: `/${office}/default_profile.png`,
               pannelImageUrl: `/${office}/pannel.png`,
             },
             main: {
@@ -367,6 +374,12 @@ export const useConfigStore = defineStore("config", () => {
                     "Q. Agent 사용 시 차이가 어떤가요?",
                     "Q. 내부문서를 업로드 할 수 있나요?",
                     "Q. 대화 목록은 언제까지 저장되나요?",
+                    "Q. API 사용량이나 비용은 어디서 확인할 수 있나요?",
+                    "Q. 팀원과 대화 기록을 공유할 수 있나요?",
+                    "Q. 모델 응답 속도가 느려질 때 해결 방법이 있나요?",
+                    "Q. 파일 업로드 시 최대 용량 제한이 있나요?",
+                    "Q. 보안 관련해서 어떤 인증 방식을 지원하나요?",
+                    "Q. 모바일 환경에서도 동일하게 사용할 수 있나요?",
                   ],
                 },
               ],
@@ -403,6 +416,7 @@ export const useConfigStore = defineStore("config", () => {
               backgroundGradientStandardColor: "#D3EDFF",
             },
             login: {
+              defaultProfileImage: `/${office}/default_profile.png`,
               pannelImageUrl: `/${office}/pannel.png`,
             },
             main: {
@@ -472,6 +486,12 @@ export const useConfigStore = defineStore("config", () => {
                     "Q. 특허 관련 자료를 분석해주세요",
                     "Q. 최근 5년간 국정감사 보고자료 분석",
                     "Q. 출장관련 비용에 대한 감사내역",
+                    "Q. 한국조폐공사의 주요 사업 구조와 ...",
+                    "Q. 최근 발행된 화폐·주화 제작 단가 ...",
+                    "Q. 한국조폐공사와 관련된 공공기관 ...",
+                    "Q. 블록체인·모바일 공인인증 등 한국...",
+                    "Q. 조폐공사 주요 해외 수출 실적(여권...",
+                    "Q. 조폐공사와 관련된 입찰·계약 정보...",
                   ],
                 },
               ],
@@ -534,7 +554,6 @@ export const useConfigStore = defineStore("config", () => {
 
   /**
    * LocalStorage 캐시에서 설정 복원
-   *
    * 사용 시나리오:
    * - API 호출 실패 시
    * - 오프라인 상태일 때
@@ -567,15 +586,12 @@ export const useConfigStore = defineStore("config", () => {
     return Date.now() - parseInt(timestamp) < ONE_HOUR;
   }
 
-  // ==========================================
   // Return (외부 노출)
-  // ==========================================
   return {
     // State
     serverConfig,
     isLoading,
     error,
-
     // Getters - Common
     office,
     imageServerUrl,
@@ -586,10 +602,9 @@ export const useConfigStore = defineStore("config", () => {
     subColorHexCode,
     subHoverColorHexCode,
     backgroundGradientStandardColor,
-
     // Getters - Login
+    defaultProfileImage,
     loginPannelImageUrl,
-
     // Getters - Main
     aiModels,
     aiAgentCards,
@@ -598,10 +613,8 @@ export const useConfigStore = defineStore("config", () => {
     chatAgentUrl,
     isFileUploadEnabled,
     isImageUploadEnabled,
-
     // Computed
     isConfigLoaded,
-
     // Actions
     fetchConfig,
     applyThemeToDOM,

@@ -30,7 +30,6 @@ import { router } from "@/router";
  */
 import "@/assets/styles/whole_variables.scss";
 import "@/assets/styles/global/whole_globals.scss";
-import { STORAGE_KEYS } from "./utils/constants";
 
 /* ==================== Vue 애플리케이션 초기화 ==================== */
 const app = createApp(App);
@@ -104,23 +103,4 @@ if (import.meta.env.PROD) {
   console.log("🎨 스타일 시스템: SCSS (@forward/@use)");
   console.log("🔧 상태관리: Pinia");
   console.log("📦 운영 서버: https://oci-poc-web-service.vercel.app/");
-}
-
-if (import.meta.env.DEV || import.meta.env.PROD) {
-  const existingAdmin = localStorage.getItem(STORAGE_KEYS.ADMIN_ACCOUNT);
-
-  if (!existingAdmin) {
-    const adminAccount = {
-      id: "aionu",
-      pw: "New1234!",
-    };
-
-    localStorage.setItem(
-      STORAGE_KEYS.ADMIN_ACCOUNT,
-      JSON.stringify(adminAccount)
-    );
-    console.log("🔧 Admin 계정이 자동으로 생성되었습니다:", adminAccount);
-  } else {
-    console.log("✅ Admin 계정이 이미 존재합니다.");
-  }
 }

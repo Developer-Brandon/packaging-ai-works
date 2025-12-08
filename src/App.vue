@@ -42,6 +42,7 @@ import { computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 import { useConfigStore } from "@/stores/configStore";
+import { STORAGE_KEYS } from "./utils/constants";
 
 // ==================== layout 컴포넌트 import ====================
 import AuthLayout from "@/layout/AuthLayout.vue";
@@ -86,15 +87,10 @@ const layoutComponents = {
  * Vue3: const currentLayout = computed(() => ...)
  */
 const currentLayout = computed(() => {
-  // 현재 route의 meta.layout 값 가져오기
   const layoutName = route.meta.layout;
-
-  // 개발 로그 (라우트 변경 시 확인용)
   console.log("📍 현재 route:", route.path);
   console.log("🎨 현재 layout:", layoutName);
   console.log("🔒 로그인 상태:", authStore.isLoggedIn);
-
-  // layoutComponents에서 해당 컴포넌트 반환
   // 없으면 undefined (v-if에서 false 처리)
   return layoutComponents[layoutName];
 });
@@ -104,15 +100,12 @@ const currentLayout = computed(() => {
  */
 function updateFavicon(faviconUrl) {
   if (!faviconUrl) return;
-
   let link = document.querySelector("link[rel~='icon']");
-
   if (!link) {
     link = document.createElement("link");
     link.rel = "icon";
     document.head.appendChild(link);
   }
-
   link.href = faviconUrl;
 }
 
@@ -138,10 +131,6 @@ const office = computed(() => {
  * 2. onMounted에서 restoreSession() 호출
  * 3. authStore.isLoggedIn이 복원됨
  * 4. 라우터 가드에서 인증 상태를 확인하고 올바른 페이지로 이동
- *
- * Vue2 vs Vue3:
- * Vue2: mounted() { ... }
- * Vue3: onMounted(() => { ... })
  */
 onMounted(async () => {
   console.log("🚀 ============================================");
@@ -162,13 +151,46 @@ onMounted(async () => {
   console.log("🎨 로고:", configStore.logoImageUrl);
   console.log("🎨 판넬:", configStore.loginPannelImageUrl);
   console.log("🎨 메인 색상:", configStore.mainColorHexCode);
-
   console.log("🔒 로그인 상태:", authStore.isLoggedIn);
   console.log("👤 사용자:", authStore.user);
   console.log("🎨 현재 layout:", currentLayout.value?.name || "none");
 
   try {
     // 1️⃣ 서버 설정 로드 (가장 먼저!)
+    const existingAdmin = localStorage.getItem(STORAGE_KEYS.ADMIN_ACCOUNT);
+    if (!existingAdmin) {
+      let adminAccount = {
+        id: "aionu",
+        pw: "New1234!",
+      };
+
+      if (configStore.office === "KOMSCO") {
+        adminAccount = {
+          id: "webo",
+          pw: "New1234!",
+        };
+      }
+
+      // 추후 꺼내서 쓸 수 있게 끔 개발 예정
+      // const menUserAccount = {
+      //   id: "lhc",
+      //   pw: "New1234!",
+      // };
+      // const womenUserAccount = {
+      //   id: "lsb",
+      //   pw: "New1234!",
+      // };
+      // const accountList = [adminAccount, menUserAccount, womenUserAccount];
+
+      localStorage.setItem(
+        STORAGE_KEYS.ADMIN_ACCOUNT,
+        JSON.stringify(adminAccount)
+      );
+      console.log("🔧 Admin 계정이 자동으로 생성되었습니다:", adminAccount);
+    } else {
+      console.log("✅ Admin 계정이 이미 존재합니다.");
+    }
+    // }
   } catch (error) {
     // ============================================================
     // 에러 처리
@@ -201,7 +223,6 @@ onMounted(async () => {
  * ============================================================
  * 
  * 서버 설정을 가져오는 동안 표시되는 로딩 화면
- * 
  * 특징:
  * - 전체 화면 중앙 정렬
  * - 그라디언트 배경 (트렌디한 느낌)
@@ -258,11 +279,7 @@ onMounted(async () => {
   font-weight: 600;
   color: white;
   text-align: center;
-
-  /* 텍스트 페이드 애니메이션 */
   animation: pulse 1.5s ease-in-out infinite;
-
-  /* 텍스트 그림자 (가독성 향상) */
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 

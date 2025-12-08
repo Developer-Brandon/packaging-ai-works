@@ -40,7 +40,6 @@ export const useAuthStore = defineStore("auth", () => {
    *   name: string,
    *   email: string,
    *   role: string ('manager', 'employee' 등),
-   *   department: string
    * }
    */
   const user = ref(null);
@@ -87,11 +86,6 @@ export const useAuthStore = defineStore("auth", () => {
    * 사용자 직급
    */
   const userRole = computed(() => user.value?.role || "");
-
-  /**
-   * 사용자 부서
-   */
-  const userDepartment = computed(() => user.value?.department || "");
 
   /* ==================== Actions (메서드) ==================== */
 
@@ -145,13 +139,37 @@ export const useAuthStore = defineStore("auth", () => {
        * user.value = data.user
        */
 
+      function engToKor(word) {
+        const rules = [
+          { en: "aionu", ko: "아이온유" },
+          { en: "we", ko: "위" },
+          { en: "wo", ko: "워" },
+          { en: "wa", ko: "와" },
+          { en: "wi", ko: "위" },
+          { en: "web", ko: "웹" },
+          { en: "be", ko: "베" },
+          { en: "bo", ko: "보" },
+          { en: "a", ko: "아" },
+          { en: "e", ko: "에" },
+          { en: "i", ko: "이" },
+          { en: "o", ko: "오" },
+          { en: "on", ko: "온" },
+          { en: "u", ko: "우" },
+        ];
+
+        let result = word;
+        for (const r of rules) {
+          result = result.replace(new RegExp(r.en, "gi"), r.ko);
+        }
+        return result;
+      }
+
       // 시뮬레이션용 더미 사용자 데이터
       const mockUser = {
         id: Date.now().toString(), // 고유 ID
-        name: credentials.email.split("@")[0], // 이메일 앞부분을 이름으로
+        name: engToKor(credentials.email.split("@")[0]), // 이메일 앞부분을 이름으로
         email: credentials.email,
-        role: "manager",
-        department: "AI Team",
+        role: "admin",
       };
 
       // 실제 로그인 처리
@@ -290,7 +308,6 @@ export const useAuthStore = defineStore("auth", () => {
     userName,
     userEmail,
     userRole,
-    userDepartment,
 
     // ==================== Actions ====================
     login,

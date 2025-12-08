@@ -23,7 +23,7 @@
       <ul class="faq-list">
         <li
           class="faq"
-          v-for="(question, index) in cardInfo.questionList"
+          v-for="(question, index) in randomQuestions"
           :key="index"
         >
           {{ question }}
@@ -47,6 +47,13 @@ const emit = defineEmits(["agent-select"]);
 const selectAgent = () => {
   emit("agent-select", props.agent);
 };
+
+// randomQuestion 4개 뽑기
+const randomQuestions = computed(() => {
+  return [...cardInfo.questionList] // 원본 복사
+    .sort(() => Math.random() - 0.5) // 랜덤 섞기
+    .slice(0, 4); // 4개만 선택
+});
 </script>
 
 <style scoped lang="scss">

@@ -2,7 +2,7 @@
 <template>
   <div class="greeting-container">
     <!-- 제목 영역: 동적으로 서버에서 받은 인사말 텍스트 렌더링 -->
-    <h1 class="greeting-title">안녕하세요. aionu님!</h1>
+    <h1 class="greeting-title">안녕하세요. {{ authStore.userName }}님!</h1>
     <!-- 설명 텍스트 영역: 부드러운 아래쪽 애니메이션으로 진입 -->
     <p class="greeting-description">오늘은 어떤 업무를 시작해볼까요?</p>
   </div>
@@ -10,11 +10,12 @@
 
 <script setup>
 import { useConfigStore } from "@/stores/configStore";
-
+import { useAuthStore } from "@/stores/auth";
 // Vue3 Composition API 사용
 // Vue2와 달리 setup() 함수 또는 <script setup> 문법 사용
 // Pinia의 useConfigStore() 훅으로 configStore 접근
 const configStore = useConfigStore();
+const authStore = useAuthStore();
 </script>
 
 <style scoped lang="scss">

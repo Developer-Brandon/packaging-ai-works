@@ -329,11 +329,9 @@ async function handleLogin() {
 
     if (success) {
       console.log("✅ 로그인 성공");
-      // showPopupMessage("로그인 성공", `환영합니다, ${authStore.userName}님!`);
       router.push("/main");
     }
   } catch (err) {
-    // error.value = err.message || "로그인 중 오류가 발생했습니다.";
     showPopupMessage("ERROR", err.message || "로그인 중 오류가 발생했습니다.");
     console.error("로그인 에러:", err);
   } finally {
@@ -378,16 +376,10 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-/**
- * scoped: 이 스타일은 현재 컴포넌트에만 적용
- * lang="scss": SCSS 문법 사용
- */
-
 @use "@/assets/styles/whole_variables" as *;
 @use "@/assets/styles/whole_animations" as *;
 
 /* ==================== 전체 페이지 & 전체 페이지 내부 ==================== */
-
 .login-page {
   /* 
     전체 화면을 차지하는 레이아웃
@@ -409,6 +401,7 @@ onMounted(() => {
   */
   @media (max-width: $breakpoint-phone) {
     flex-direction: column;
+    padding: 40px;
   }
 
   &__inner {
