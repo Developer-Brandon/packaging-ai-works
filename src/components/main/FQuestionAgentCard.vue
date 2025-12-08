@@ -105,6 +105,8 @@ const randomQuestions = computed(() => {
   align-items: center;
   text-align: center;
   gap: 1rem; /* 요소 간의 간격 */
+  width: 100%;
+  height: 100%;
 }
 
 .agent-icon-wrapper {
@@ -136,7 +138,7 @@ const randomQuestions = computed(() => {
 
 .agent-name {
   /* 에이전트 이름 */
-  font-size: 18px; /* 20px */
+  font-size: 1.5rem; /* 20px */
   font-weight: 700;
   color: $text-primary;
   margin-top: 5px;
@@ -148,7 +150,7 @@ const randomQuestions = computed(() => {
   margin: 0;
 
   .faq {
-    font-size: 12px;
+    font-size: 11.5px;
     color: $text-primary;
     line-height: 1.3;
     padding: 8px 23px;

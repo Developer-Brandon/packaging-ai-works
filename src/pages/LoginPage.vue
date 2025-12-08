@@ -5,7 +5,7 @@
       <div class="login-form-section">
         <div class="login-container">
           <div class="login-header">
-            <h1 class="login-title">로그인</h1>
+            <h1 class="login-title">로 그 인</h1>
             <p class="login-subtitle">
               {{ configStore.office }} AI Works 에 오신것을 환영합니다
             </p>
@@ -480,7 +480,7 @@ onMounted(() => {
     "로그인" 제목
     크기, 색상, 마진 설정
   */
-  font-size: $font-size-3xl;
+  font-size: $font-size-5xl;
   font-weight: $font-weight-bold;
   color: $text-primary;
   margin-bottom: $spacing-3;
@@ -496,7 +496,7 @@ onMounted(() => {
     설명 텍스트
     흐린 색상으로 보조 정보임을 표시
   */
-  font-size: $font-size-sm;
+  font-size: $font-size-2xl;
   color: $text-secondary;
   line-height: 1.6;
   animation: fadeInUp 0.6s ease-out 0.3s both;

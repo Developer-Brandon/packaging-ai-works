@@ -110,6 +110,8 @@ const selectAgent = () => {
   align-items: center;
   text-align: center;
   gap: 1rem; /* 요소 간의 간격 */
+  width: 100%;
+  height: 100%;
 }
 
 .agent-icon-wrapper {
@@ -133,7 +135,7 @@ const selectAgent = () => {
 
 .agent-name {
   /* 에이전트 이름 */
-  font-size: 1.25rem; /* 20px */
+  font-size: 1.5rem; /* 20px */
   font-weight: 700;
   color: $text-primary;
   margin: 0.5rem 0 0 0;
@@ -141,7 +143,7 @@ const selectAgent = () => {
 
 .agent-description {
   /* 에이전트 설명 텍스트 */
-  font-size: 0.875rem; /* 14px */
+  font-size: 1.2rem; /* 14px */
   color: $text-secondary;
   line-height: 1.6;
   margin: 0;
