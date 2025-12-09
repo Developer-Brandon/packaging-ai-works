@@ -71,10 +71,10 @@ const handleRemoveFile = (idx) => {
 /* 메인 콘텐츠 영역 */
 .main-content {
   flex: 1;
-  padding: 3rem 2rem; /* 48px top/bottom, 32px left/right */
+  padding: 2rem 1rem; /* 48px top/bottom, 32px left/right */
   max-width: 1200px; /* 최대 너비 제한 */
   margin: 0 auto; /* 중앙 정렬 */
-  margin-top: 6.5rem;
+  margin-top: 3.5rem;
   width: 100%;
 
   /* 반응형: 모바일 화면 */
@@ -93,7 +93,7 @@ const handleRemoveFile = (idx) => {
 .card-list-section {
   /* 진입 애니메이션 */
   animation: fadeInDown 2s ease-out;
-  margin-bottom: 200px;
+  margin-bottom: 150px;
   &__greeting {
     width: 984px; // 우선적으로,
     margin: 0 auto;

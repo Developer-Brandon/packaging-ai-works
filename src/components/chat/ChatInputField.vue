@@ -253,7 +253,7 @@ watch(
   flex-direction: column;
   gap: var.$spacing-3;
   padding: var.$spacing-4;
-  background-color: var(--sub-color);
+  background-color: rgb(247, 239, 239);
   border-radius: var.$border-radius-xl;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   animation: fadeInUp 0.4s ease-out;
