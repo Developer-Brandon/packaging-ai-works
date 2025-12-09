@@ -162,18 +162,6 @@ const popupConfig = ref({
 });
 
 /* ==================== Computed (파생 데이터) ==================== */
-
-/**
- * computed()로 정의된 파생 데이터
- * 의존하는 값(email, password)이 변경되면 자동으로 재계산됨
- *
- * Vue2:
- * computed: { isFormValid() { ... } }
- *
- * Vue3:
- * const isFormValid = computed(() => { ... })
- */
-
 /**
  * 폼 유효성 검사
  * 이메일과 비밀번호가 모두 입력되었으면 true
@@ -343,7 +331,6 @@ function handleSignup() {
 }
 
 function initializeZoom() {
-  // ✅ 방법 1: querySelector 사용 (추천)
   const contentArea = document.querySelector(".login-form-section");
 
   if (contentArea) {
@@ -394,9 +381,7 @@ onMounted(() => {
   width: 100%;
   height: 100vh;
   background-color: $bg-secondary;
-  /* 
-    반응형: 작은 화면에서는 세로 배치
-  */
+
   @media (max-width: $breakpoint-phone) {
     flex-direction: column;
     padding: 40px;
@@ -428,12 +413,7 @@ onMounted(() => {
 }
 
 /* ==================== 왼쪽: 로그인 폼 섹션 ==================== */
-
 .login-form-section {
-  /* 
-    왼쪽 섹션: 50% 너비
-    중앙 정렬로 폼이 화면 중앙에 보임
-  */
   flex: 1;
   display: flex;
   align-items: center;
@@ -453,7 +433,6 @@ onMounted(() => {
 .login-container {
   /* 
     로그인 폼을 감싸는 컨테이너
-    
     최대 너비 설정으로 폼이 너무 넓어지지 않음
   */
   width: 100%;
@@ -469,32 +448,20 @@ onMounted(() => {
 /* ==================== 헤더 (제목, 설명) ==================== */
 
 .login-header {
-  margin-bottom: $spacing-8;
+  margin-bottom: $spacing-10;
   text-align: center;
 }
 
 .login-title {
-  /* 
-    "로그인" 제목
-    크기, 색상, 마진 설정
-  */
   font-size: $font-size-5xl;
   font-weight: $font-weight-bold;
   color: $text-primary;
-  margin-bottom: $spacing-3;
-
-  /* 
-    페이드인 애니메이션
-  */
+  margin-bottom: $spacing-5;
   animation: fadeInDown 0.6s ease-out 0.2s both;
 }
 
 .login-subtitle {
-  /* 
-    설명 텍스트
-    흐린 색상으로 보조 정보임을 표시
-  */
-  font-size: $font-size-2xl;
+  font-size: $font-size-xl;
   color: $text-secondary;
   line-height: 1.6;
   animation: fadeInUp 0.6s ease-out 0.3s both;
@@ -503,9 +470,7 @@ onMounted(() => {
 /* ==================== 폼 ==================== */
 
 .login-form {
-  /* 
-    입력 필드들을 수직으로 배치
-  */
+  /* 입력 필드들을 수직으로 배치 */
   display: flex;
   flex-direction: column;
 }

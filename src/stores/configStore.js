@@ -261,9 +261,7 @@ export const useConfigStore = defineStore("config", () => {
       // LocalStorage에 백업 (오프라인 대비)
       localStorage.setItem("config_cache", JSON.stringify(data));
       // localStorage.setItem('config_timestamp', Date.now().toString())
-
       applyThemeToDOM();
-
       console.log("✅ Config loaded successfully!");
       console.log("📦 Config data:", data);
 
@@ -285,7 +283,7 @@ export const useConfigStore = defineStore("config", () => {
    * 임시 Mock 데이터
    */
   function getMockConfigData() {
-    const office = "oci";
+    const office = "komsco";
     const privateImageServerUrl =
       "https://raw.githubusercontent.com/Developer-Brandon/image-temp-repo/refs/heads/main";
     if (office === "oci") {
