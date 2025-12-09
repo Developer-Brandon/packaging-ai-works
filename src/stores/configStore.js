@@ -102,10 +102,7 @@ export const useConfigStore = defineStore("config", () => {
   });
 
   const opengraphDescription = computed(() => {
-    const base = imageServerUrl.value;
-    const path =
-      serverConfig.value?.data?.info?.common?.opengraphDescription || "";
-    return base + path;
+    return serverConfig.value?.data?.info?.common?.opengraphDescription || "";
   });
 
   /**
