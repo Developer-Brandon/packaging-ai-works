@@ -25,7 +25,7 @@
       />
       <img
         class="sidebar__search-icon"
-        src="@/assets/images/main/icon/mynaui_sidebar_searching_icon.png"
+        src="@/assets/images/main/icon/reading_grasses.png"
       />
     </div>
     <!-- ==================== 채팅 히스토리 섹션 ==================== -->
