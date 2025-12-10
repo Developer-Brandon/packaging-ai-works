@@ -22,7 +22,7 @@
     <!-- <section class="chat-section-wrapper">
       <ChatSection />
     </section> -->
-    <section class="chat-wrapper">
+    <section class="chat-section">
       <ChatInputField
         v-model="chatMessage"
         :attached-files="attachedFiles"
@@ -39,10 +39,10 @@ import { onMounted, ref } from "vue";
 // import { useRouter } from "vue-router";
 // import { useConfigStore } from "@/stores/configStore";
 import MainGreeting from "@/components/main/MainGreeting.vue";
-import GreetingAgentCard from "@/components/main/GreetingAgentCard.vue";
-import MiddleAgentCard from "@/components/main/MiddleAgentCard.vue";
-import FQuestionAgentCard from "../components/main/FQuestionAgentCard.vue";
-// import ChatSection from "@/components/chat/ChatSection.vue"
+import GreetingAgentCard from "@/components/main/card/GreetingAgent.vue";
+import MiddleAgentCard from "@/components/main/card/MiddleAgent.vue";
+import FQuestionAgentCard from "../components/main/card/FQuestionAgent.vue";
+// import ChatSection from "@/components/chat/ChatSection.vue";
 import ChatInputField from "@/components/chat/ChatInputField.vue"; // ✅ 새로 추가
 
 const chatMessage = ref("");
@@ -64,20 +64,20 @@ const handleRemoveFile = (idx) => {
 };
 
 function initializeZoom() {
-  // ✅ 방법 1: querySelector 사용 (추천)
   const contentArea = document.querySelector(".main-content");
 
   if (contentArea) {
-    contentArea.style.transform = "scale(0.9)";
+    const scaleValue = "9";
+    contentArea.style.transform = `scale(0.${scaleValue})`;
     contentArea.style.transformOrigin = "top center";
-    console.log("🔍 .content-area 크기: 80% (transform 사용)");
+    console.log(`🔍 .content-area 크기: ${scaleValue}0% (transform 사용)`);
   } else {
     console.warn("⚠️ .content-area 요소를 찾을 수 없습니다");
   }
 }
 
 onMounted(() => {
-  // initializeZoom();
+  initializeZoom();
 });
 </script>
 
@@ -112,12 +112,13 @@ onMounted(() => {
   animation: fadeInDown 2s ease-out;
   margin-bottom: 150px;
   &__greeting {
-    width: 984px; // 우선적으로,
+    width: 984px;
     margin: 0 auto;
     &__text {
       text-align: left;
       color: #686868;
       font-size: 25px;
+      font-weight: 500;
     }
   }
   &__inner {
@@ -129,9 +130,8 @@ onMounted(() => {
   }
 }
 
-.chat-wrapper {
+.chat-section {
   max-width: 1064px;
   margin: 3rem auto 0;
-  padding: 0 2rem;
 }
 </style>

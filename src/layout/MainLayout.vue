@@ -18,52 +18,6 @@
 /**
  * MainLayout.vue - 메인 페이지 전체 레이아웃
  *
- * 구성:
- * 1. Sidebar Toggle Button (항상 표시)
- * 2. MainSidebar (토글 가능)
- * 3. Content Area (메인 콘텐츠) - ✅ 동적 그래디언트 배경 적용
- * 4. Overlay (모바일/태블릿)
- *
- * Vue3 Composition API:
- * - ref(): 반응형 상태
- * - computed(): 계산된 속성
- * - onMounted/onUnmounted: 라이프사이클
- *
- * ✅ Vue2 vs Vue3 비교:
- * ======================
- *
- * Vue2 (Options API 방식):
- * ```
- * export default {
- *   data() {
- *     return {
- *       isSidebarOpen: true,
- *       isMobileOrTablet: false,
- *       gradientStyle: 'linear-gradient(135deg, #FFE6F0, #FFFFFF)'
- *     }
- *   },
- *   computed: {
- *     // 계산된 속성
- *     gradientObject() {
- *       return {
- *         background: this.gradientStyle
- *       }
- *     }
- *   },
- *   methods: {
- *     toggleSidebar() { ... },
- *     closeSidebar() { ... }
- *   },
- *   mounted() {
- *     this.handleWindowResize()
- *     window.addEventListener('resize', this.handleWindowResize)
- *   },
- *   beforeUnmount() {
- *     window.removeEventListener('resize', this.handleWindowResize)
- *   }
- * }
- * ```
- *
  * Vue3 (Composition API 방식):
  * - ref()로 반응형 상태 선언 (this.data 대신)
  * - 함수형 구조로 더 간결한 코드
@@ -140,7 +94,7 @@ const initializeGradient = () => {
   // 추후 서버에서 받은 값으로 동적 적용:
   // const config = await fetchConfigFromServer()
   // setGradient(config.gradientStart, config.gradientEnd, config.angle)
-  setGradient(configStore.backgroundGradientStandardColor, "#FFFFFF", 360);
+  setGradient(configStore.mainHoverColorHexCode, "#FFFFFF", 360);
 };
 
 /* ==================== 라이프사이클 ==================== */

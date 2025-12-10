@@ -37,11 +37,15 @@
       </div>
     </div>
 
-    <!-- ==================== 입력 필드 + 버튼 영역 ==================== -->
+    <!-- ==================== 버튼 영역 ==================== -->
     <div class="input-bottom-section">
       <!-- 좌측: AI Agent 버튼 -->
-      <button class="ai-agent-btn" @click="toggleAgentMenu">
-        <span class="ai-agent-text">
+      <button
+        class="ai-agent-btn"
+        :style="gradientObject"
+        @click="toggleAgentMenu"
+      >
+        <span class="ai-agent-btn__text">
           <CommonIcon
             :src="aiAgentBrightIcon"
             width="16"
@@ -52,25 +56,15 @@
         >
       </button>
 
-      <!-- 우측: 사용량 표시 -->
-      <div class="usage-info">
-        <span class="usage-label">{{ selectedAgent.modelName }}</span>
-        <span class="usage-bar">
-          <span class="usage-current">{{ selectedAgent.realUsageCount }}</span>
-          <span class="usage-separator">/</span>
-          <span class="usage-total">{{ selectedAgent.wholeUsageCount }}</span>
+      <div class="ai-model-info">
+        <span class="ai-model-info__label">{{ selectedAgent.modelName }}</span>
+        <span class="ai-model-info__usage">
+          <span class="current">{{ selectedAgent.realUsageCount }}</span>
+          <span class="separator">/</span>
+          <span class="total">{{ selectedAgent.wholeUsageCount }}</span>
         </span>
       </div>
     </div>
-
-    <!-- ==================== 숨겨진 입력 필드 ==================== -->
-    <textarea
-      v-model="inputMessage"
-      class="hidden-textarea"
-      placeholder="메시지 입력..."
-      style="position: absolute; left: -9999px; visibility: hidden"
-      @keydown.enter.prevent="handleEnter"
-    />
 
     <!-- ==================== 숨겨진 파일 input ==================== -->
     <input
@@ -81,7 +75,7 @@
       @change="handleFileSelect"
     />
 
-    <!-- ==================== Agent 메뉴 (Teleport) ==================== -->
+    <!-- ==================== Agent Context Menu (Teleport) ==================== -->
     <Teleport to="body">
       <div
         v-if="agentMenuVisible"
@@ -98,26 +92,22 @@
         </div>
       </div>
     </Teleport>
+
+    <!-- ==================== Agent Context Menu (Teleport) ==================== -->
   </div>
 </template>
 
 <script setup>
 /**
  * ChatInputField.vue
- *
- * 채팅 입력 필드 컴포넌트
- *
- * 특징:
- * - 상단: 메시지 표시 영역
- * - 하단: 입력 컨트롤 (AI Agent 버튼, 아이콘 그룹, 사용량 표시)
- * - 메시지 입력은 보이지 않는 textarea에서 처리
  */
 
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useConfigStore } from "@/stores/configStore";
 import aiAgentBrightIcon from "@/assets/images/main/icon/ai_agent_bright.png";
 import CommonIcon from "@/components/icon/CommonIcon.vue";
-
+import { useGradient } from "@/composables/useGradient.js";
+const { gradientObject, setGradient } = useGradient();
 const configStore = useConfigStore();
 
 /* ==================== Props ==================== */
@@ -263,72 +253,80 @@ watch(
     inputMessage.value = newVal;
   }
 );
+
+onMounted(() => {
+  setGradient(configStore.mainColorHexCode, "#FFFFFF", 90);
+});
 </script>
 
 <style scoped lang="scss">
-@use "@/assets/styles/whole_variables.scss" as var;
+@use "@/assets/styles/whole_variables.scss" as *;
 @use "@/assets/styles/whole_animations.scss" as *;
 
-/* ==================== 전체 컨테이너 ==================== */
+/* ==================== 채팅 입력 필드 ==================== */
 .chat-input-field {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: var.$spacing-3;
-  padding: var.$spacing-4;
-  border-radius: var.$border-radius-xl;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  gap: $spacing-3;
+  padding: $spacing-4;
+  border-radius: $border-radius-xl;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.08); /* 먼 그림자 */
   animation: fadeInUp 0.4s ease-out;
-}
-
-/* ==================== 메시지 표시 영역 ==================== */
-.message-display-area {
-  width: 100%;
-  min-height: 175px;
-  align-items: flex-end;
-  padding: var.$spacing-3 var.$spacing-4;
-  background-color: #f8f9fa;
-  border-radius: var.$border-radius-lg;
-  animation: fadeIn 0.3s ease-out;
-}
-.message-text-area {
-  min-height: 100px;
-  .message-text {
-    margin: 0;
-    font-size: var.$font-size-base;
-    line-height: 1.6;
-    color: var.$text-primary;
-    word-break: break-word;
+  /* ==================== 메시지 표시 영역 ==================== */
+  .message-display-area {
+    width: 100%;
+    min-height: 175px;
+    align-items: flex-end;
+    padding: $spacing-4 $spacing-6;
+    background-color: $white;
+    border-radius: $border-radius-lg;
+    animation: fadeIn 0.3s ease-out;
+    border: 1px solid var(--main-color);
+    .message-text-area {
+      min-height: 100px;
+      .message-text {
+        margin: 0;
+        font-size: $font-size-base;
+        line-height: 1.6;
+        color: $text-primary;
+        word-break: break-word;
+      }
+    }
+    .ai-agent-text {
+      font-size: $font-size-sm;
+    }
   }
 }
 
 /* ==================== 입력 필드 하단 섹션 ==================== */
 .input-bottom-section {
   display: flex;
-  gap: var.$spacing-1;
+  gap: $spacing-1;
   justify-content: space-between;
 }
 
 /* ==================== AI Agent 버튼 ==================== */
 .ai-agent-btn {
   display: flex;
+  width: 127px;
+  height: 32px;
   align-items: center;
-  gap: var.$spacing-2;
-  padding: var.$spacing-2 var.$spacing-4;
-  border: 2px solid var(--primary-color);
-  border-radius: var.$border-radius-full;
-  background-color: transparent;
-  color: var(--primary-color);
+  gap: $spacing-2;
+  padding: $spacing-2 $spacing-4;
+  border: 1px solid var(--primary-color);
+  border-radius: $border-radius-full;
   cursor: pointer;
-  font-size: var.$font-size-sm;
+  font-size: $font-size-sm;
   font-weight: 600;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   flex-shrink: 0;
-
+  background-color: var(--primary-color);
+  &__text {
+  }
+  color: $white;
   &:hover {
-    background-color: var(--primary-color);
-    color: var.$white;
-    transform: scale(1.15);
+    transform: scale(1.1);
     box-shadow: 0 4px 12px rgba(208, 2, 27, 0.2);
   }
 
@@ -341,13 +339,6 @@ watch(
   font-size: 1rem;
 }
 
-.ai-agent-text {
-  font-size: var.$font-size-sm;
-  // .bight-border {
-  //   border: 1px solid var(--primary-color);
-  // }
-}
-
 /* ==================== 우측 아이콘 그룹 ==================== */
 .action-icons-area {
   display: flex;
@@ -356,7 +347,7 @@ watch(
 
   .action-icons-group {
     display: flex;
-    gap: var.$spacing-2;
+    gap: $spacing-2;
   }
 }
 
@@ -365,15 +356,15 @@ watch(
   border: none;
   cursor: pointer;
   font-size: 1.25rem;
-  padding: var.$spacing-2;
-  border-radius: var.$border-radius-base;
+  padding: $spacing-2;
+  border-radius: $border-radius-base;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
 
   &:hover {
-    background-color: var.$gray-100;
+    background-color: $gray-100;
     transform: scale(1.1);
   }
 
@@ -393,7 +384,7 @@ watch(
   height: 44px;
   border: none;
   border-radius: 50%;
-  color: var.$black;
+  color: $black;
   cursor: pointer;
   font-size: 1.2rem;
   display: flex;
@@ -419,40 +410,35 @@ watch(
 }
 
 /* ==================== 사용량 정보 ==================== */
-.usage-info {
+.ai-model-info {
   display: flex;
   align-items: center;
-  gap: var.$spacing-2;
-  padding: 0 var.$spacing-3;
+  gap: $spacing-2;
+  padding: 0 $spacing-3;
   flex-shrink: 0;
-}
-
-.usage-label {
-  font-size: var.$font-size-sm;
-  color: var.$text-muted;
-  font-weight: 500;
-}
-
-.usage-bar {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  font-size: var.$font-size-sm;
-  color: var.$text-muted;
-}
-
-.usage-current {
-  font-weight: 600;
-  color: var(--primary-color, #d0021b);
-}
-
-.usage-separator {
-  color: var.$gray-400;
-}
-
-.usage-total {
-  font-weight: 600;
-  color: var.$text-secondary;
+  &__label {
+    font-size: $font-size-sm;
+    color: $text-muted;
+    font-weight: 500;
+  }
+  &__usage {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-size: $font-size-sm;
+    color: $text-muted;
+    .current {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+    .separator {
+      color: $gray-400;
+    }
+    .total {
+      font-weight: 600;
+      color: $text-secondary;
+    }
+  }
 }
 
 /* ==================== Agent 메뉴 (Teleport) ==================== */
@@ -469,11 +455,11 @@ watch(
   position: fixed;
   top: 840px;
   left: 575px;
-  background-color: var.$bg-primary;
-  border: 1px solid var.$gray-200;
-  border-radius: var.$border-radius-lg;
+  background-color: $bg-primary;
+  border: 1px solid $gray-200;
+  border-radius: $border-radius-lg;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-  padding: var.$spacing-3 0;
+  padding: $spacing-3 0;
   z-index: 1000;
   min-width: 250px;
   max-height: 400px;
@@ -482,19 +468,19 @@ watch(
 }
 
 .agent-menu-item {
-  padding: var.$spacing-3 var.$spacing-4;
+  padding: $spacing-3 $spacing-4;
   cursor: pointer;
-  font-size: var.$font-size-sm;
-  color: var.$text-primary !important;
+  font-size: $font-size-sm;
+  color: $text-primary !important;
   transition: all 0.2s ease;
 
   &:hover {
-    background-color: var.$gray-50;
-    padding-left: calc(var.$spacing-4 + var.$spacing-2);
+    background-color: $gray-50;
+    padding-left: calc($spacing-4 + $spacing-2);
   }
 
   &:active {
-    background-color: var.$gray-100;
+    background-color: $gray-100;
   }
 }
 

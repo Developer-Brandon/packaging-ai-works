@@ -67,6 +67,7 @@ const selectAgent = () => {
   /* 기본 배경 */
   background: $white;
   border: 1px solid $gray-200;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.08); /* 먼 그림자 */
 
   /* 부드러운 전환 효과 */
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -149,36 +150,5 @@ const selectAgent = () => {
   margin: 0;
   white-space: pre-wrap; /* 줄바꿈 유지 */
   word-break: keep-all;
-}
-
-.agent-cta {
-  /* CTA (Call To Action) - 호버 시 나타남 */
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 1rem;
-  color: var(--color-primary);
-  font-weight: 600;
-  font-size: 0.875rem;
-
-  /* 기본적으로 투명 */
-  opacity: 0;
-  transform: translateY(5px);
-  transition: all 0.3s ease;
-
-  /* 호버 시 나타남 */
-  .agent-card:hover & {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.cta-icon {
-  /* CTA 아이콘 - 호버 시 오른쪽으로 이동 */
-  transition: transform 0.3s ease;
-
-  .agent-card:hover & {
-    transform: translateX(4px);
-  }
 }
 </style>

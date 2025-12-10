@@ -72,6 +72,7 @@ const randomQuestions = computed(() => {
   /* 기본 배경 */
   background: $white;
   border: 1px solid $gray-200;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.08); /* 먼 그림자 */
 
   /* 부드러운 전환 효과 */
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -91,106 +92,53 @@ const randomQuestions = computed(() => {
   &:active {
     transform: translateY(-4px);
   }
-}
-
-/* 카드 내용 컨테이너 - z-index로 배경 위에 표시 */
-.card-content {
-  position: relative;
-  z-index: 1;
-  padding: 1.5rem; /* 32px top/bottom, 24px left/right */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 1rem; /* 요소 간의 간격 */
-  width: 100%;
-  height: 100%;
-  margin-top: -1px;
-}
-
-.agent-icon-wrapper {
-  /* 아이콘을 감싸는 래퍼 - 배경 원형 처리 */
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: linear-gradient(
-    135deg,
-    rgba(var(--color-primary), 0.1) 0%,
-    rgba(var(--sub-color), 0.1) 100%
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  /* 호버 시 회전 애니메이션 */
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-
-  .agent-card:hover & {
-    transform: rotate(10deg) scale(1.05);
+  /* 카드 내용 컨테이너 - z-index로 배경 위에 표시 */
+  .card-content {
+    position: relative;
+    z-index: 1;
+    padding: 1.5rem; /* 32px top/bottom, 24px left/right */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem; /* 요소 간의 간격 */
+    width: 100%;
+    height: 100%;
+    margin-top: -1px;
   }
-}
 
-.agent-icon {
-  /* 아이콘 자체 */
-  color: var(--color-primary);
-}
-
-.agent-name {
-  /* 에이전트 이름 */
-  font-size: 1.5rem; /* 20px */
-  font-weight: 700;
-  color: $text-primary;
-  margin-top: 5px;
-}
-
-.faq-list {
-  list-style: none; // 기본 불렛 제거
-  padding: 0;
-  margin: 0;
-
-  .faq {
-    font-size: 11.5px;
+  .agent-name {
+    /* 에이전트 이름 */
+    font-size: 1.4rem; /* 20px */
+    font-weight: 700;
     color: $text-primary;
-    line-height: 1.3;
-    padding: 8px 23px;
-    background-color: $white;
-    border-radius: 27px;
-    text-align: left;
-    overflow: hidden; // ← 넘치는 글 숨김
-    text-overflow: ellipsis; // ← '…' 처리
-    white-space: nowrap; // ← 한 줄로 제한
-    display: block; // ← 대부분 block/inline-block이 안전
-    max-width: 100%; // ← 부모 넓이 기준으로 말줄임
+    margin-top: 5px;
   }
-}
-.agent-cta {
-  /* CTA (Call To Action) - 호버 시 나타남 */
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 1rem;
-  color: var(--color-primary);
-  font-weight: 600;
-  font-size: 0.875rem;
 
-  /* 기본적으로 투명 */
-  opacity: 0;
-  transform: translateY(5px);
-  transition: all 0.3s ease;
-
-  /* 호버 시 나타남 */
-  .agent-card:hover & {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.cta-icon {
-  /* CTA 아이콘 - 호버 시 오른쪽으로 이동 */
-  transition: transform 0.3s ease;
-
-  .agent-card:hover & {
-    transform: translateX(4px);
+  .faq-list {
+    // 기본 불렛 제거
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    .faq {
+      font-size: 11.5px;
+      color: $text-primary;
+      line-height: 1.3;
+      padding: 8px 23px;
+      background-color: $white;
+      border-radius: 27px;
+      text-align: left;
+      overflow: hidden; // ← 넘치는 글 숨김
+      text-overflow: ellipsis; // ← '…' 처리
+      white-space: nowrap; // ← 한 줄로 제한
+      display: block; // ← 대부분 block/inline-block이 안전
+      max-width: 100%; // ← 부모 넓이 기준으로 말줄임
+      &:hover {
+        font-weight: 900;
+        transform: scale(1.02);
+        transition: $transition-base;
+      }
+    }
   }
 }
 </style>

@@ -144,7 +144,6 @@ export function useGradient() {
    *
    * 사용 예시:
    * setGradient('#FFE6F0', '#FFFFFF', 135)
-   * setGradient('#FF0000', '#0000FF') // 각도는 기본값 135 사용
    */
   const setGradient = (startColor, endColor, angle = 135) => {
     console.log("🎨 Gradient 설정 시도:", { startColor, endColor, angle });
