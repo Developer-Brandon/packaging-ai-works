@@ -61,13 +61,12 @@ const selectAgent = () => {
   border-radius: 1rem; /* 16px */
   overflow: hidden;
   cursor: pointer;
+  perspective: 1000px;
 
   /* 기본 배경 */
   background: $white;
   border: 1px solid $gray-200;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 4px 16px rgba(0, 0, 0, 0.08); /* 먼 그림자 */
-
-  /* 부드러운 전환 효과 */
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* 접근성: 키보드 네비게이션 포커스 표시 */
@@ -110,24 +109,7 @@ const selectAgent = () => {
     gap: 1rem; /* 요소 간의 간격 */
     width: 100%;
     height: 100%;
-    /* 아이콘을 감싸는 래퍼 - 배경 원형 처리 */
-    .agent-icon-wrapper {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: linear-gradient(
-        135deg,
-        rgba(var(--color-primary), 0.1) 0%,
-        rgba(var(--sub-color), 0.1) 100%
-      );
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); /* 호버 시 회전 애니메이션 */
-      .agent-card:hover & {
-        transform: rotate(10deg) scale(1.05);
-      }
-    }
+
     .agent-name {
       /* 에이전트 이름 */
       font-size: 1.5rem; /* 20px */
@@ -145,6 +127,25 @@ const selectAgent = () => {
       white-space: pre-wrap; /* 줄바꿈 유지 */
       word-break: keep-all;
     }
+  }
+}
+
+/* 아이콘을 감싸는 래퍼 - 배경 원형 처리 */
+.agent-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--color-primary), 0.1) 0%,
+    rgba(var(--sub-color), 0.1) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); /* 호버 시 회전 애니메이션 */
+  .agent-card:hover & {
+    transform: rotate(10deg) scale(1.05);
   }
 }
 </style>
