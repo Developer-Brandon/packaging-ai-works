@@ -279,17 +279,14 @@ const selectAgent = () => {
   overflow: hidden;
   cursor: pointer;
   perspective: 1000px;
-
-  /* 배경 및 테두리 */
   background: $white;
   border: 1px solid $gray-200;
   box-shadow: $shadow-base, 0 4px 16px rgba(0, 0, 0, 0.08);
-
-  /* 트랜지션 (호버 시 부드러운 애니메이션) */
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 
   @media (max-width: 768px) {
     width: 100%;
+    margin-bottom: 0.5rem;
   }
 
   /* 접근성: 키보드 포커스 표시 */

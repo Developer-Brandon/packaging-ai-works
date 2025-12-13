@@ -534,7 +534,7 @@ onMounted(() => {
   &:hover {
     transform: scale(1.1);
     .white-bright-icon {
-      transform: rotate(-80deg) scale(2);
+      transform: rotate(-80deg);
     }
   }
   &:active {
