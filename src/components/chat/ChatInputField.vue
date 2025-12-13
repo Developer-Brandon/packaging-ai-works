@@ -657,6 +657,9 @@ onMounted(() => {
   animation: dropdownSlideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   backdrop-filter: blur(10px);
   min-width: 250px;
+  @media (max-width: 768px) {
+    min-width: 150px;
+  }
 }
 
 @keyframes dropdownSlideUp {
@@ -686,17 +689,28 @@ onMounted(() => {
   &:last-child {
     border-bottom: none;
   }
-
+  @media (max-width: 768px) {
+    padding: 10px 14px;
+  }
   .option-text {
     &__icon {
       margin-right: 2px;
+      @media (max-width: 768px) {
+        font-size: 12px;
+      }
     }
     &__title {
       font-size: 17px;
+      @media (max-width: 768px) {
+        font-size: 12px;
+      }
     }
     &__explain {
       white-space: pre-line;
       font-size: 10px;
+      @media (max-width: 768px) {
+        display: none;
+      }
     }
   }
 
