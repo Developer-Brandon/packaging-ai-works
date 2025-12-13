@@ -474,7 +474,7 @@ const selectAgent = () => {
     height: 100%;
     margin-top: -1px; /* 기존 코드 그대로 유지 (미세 조정) */
     @media (min-width: 769px) and (max-width: 1920px) {
-      padding: $spacing-10; /* 1.5rem = 24px */
+      padding: 1.8rem;
     }
     /* ==================== FAQ 제목 ==================== */
     /**

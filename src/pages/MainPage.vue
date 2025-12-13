@@ -347,7 +347,7 @@ onMounted(() => {
 
   /* 반응형 */
   @media (min-width: 769px) and (max-width: 1920px) {
-    margin-bottom: 1.5rem;
+    margin-bottom: 3.5rem;
   }
   @media (max-width: 768px) {
     margin-bottom: 2rem;
